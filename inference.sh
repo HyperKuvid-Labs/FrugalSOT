@@ -1,11 +1,5 @@
-#!/bin/bash
+echo "Time inference"
 
-read -p "Enter the prompt: " PROMPT
+bash main.sh
 
-echo start="$(date +%s)"
-
-ollama run phi "$PROMPT"
-
-echo end="$(date +%s)"
-echo "Time taken: $((end-start))"
-echo "Done!!"
+bash inference.sh

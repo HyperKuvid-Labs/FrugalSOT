@@ -6,7 +6,7 @@ filename=data/output.txt
 data1=$(<"$filename")
 PROMPT=$(grep -o '"prompt": *"[^"]*"' data/test.txt | sed 's/"prompt": "//; s/"$//')
 
-similarity_score=$(python3 frugalsot.py "$data1" "$PROMPT")
+similarity_score=$(python3 textSimilarity.py "$data1" "$PROMPT")
 
 echo "Similarity score: $similarity_score"
 

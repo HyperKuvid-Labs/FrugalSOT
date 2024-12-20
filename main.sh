@@ -24,16 +24,16 @@ case "$COMPLEXITY" in
         ;;
     "Mid")
         echo "Running medium complexity model..."
-        ollama run tinydolphin "$PROMPT"
+        ollama run tinydolphin "$PROMPT" > data/output.txt
         ;;
     "High")
         echo "Running high complexity model..."
-        ollama run gemma2:2b "$PROMPT"
+        ollama run gemma2:2b "$PROMPT" > data/output.txt
         ;;
     *)
         echo "Unknown complexity level: $COMPLEXITY"
         echo "Running on highly inefficient model..."
-        ollama run phi "$PROMPT"
+        ollama run phi "$PROMPT" > data/output.txt
         ;;
 esac
 

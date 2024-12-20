@@ -30,4 +30,4 @@ if __name__ == "__main__":
         sys.exit(1)
     text1 = sys.argv[1]
     text2 = sys.argv[2]
-    print(compute_text_relevancy(text1, text2))
+    print(f"{compute_text_relevancy(text1, text2):.16f}")

@@ -1,4 +1,4 @@
-import subprocess
+# import subprocess
 import json
 from dotenv import load_dotenv
 import os
@@ -22,5 +22,5 @@ complexity = classify_prompt_complexity(prompt)
 with open("data/test.txt", "w") as f:
     f.write(str(json.dumps({"prompt":prompt,"complexity":complexity})))
 
-command = ["scp", "data/test.txt", REMOTE_PATH]
-subprocess.run(command, check=True)
+# command = ["scp", "data/test.txt", REMOTE_PATH]
+# subprocess.run(command, check=True)

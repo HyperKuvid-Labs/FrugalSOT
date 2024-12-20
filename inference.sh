@@ -1,5 +1,10 @@
+#!/bin/bash
+
 echo "Time inference"
 
 bash main.sh
 
-bash inference.sh
+bash inefficient.sh
+
+exit 0
+# exit 1

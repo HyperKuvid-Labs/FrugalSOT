@@ -26,7 +26,7 @@ case "$COMPLEXITY" in
         ollama run tinyllama "$PROMPT"
         echo end="$(date +%s)"
         ;;
-    "Medium")
+    "Mid")
         echo "Running medium complexity model..."
         ollama run tinydolphin "$PROMPT"
         ;;

@@ -20,7 +20,7 @@ echo "Prompt: $PROMPT"
 case "$COMPLEXITY" in
     "Low")
         echo "Running low complexity model..."
-        ollama run tinyllama "$PROMPT"
+        ollama run tinyllama "$PROMPT" > data/output.txt
         ;;
     "Mid")
         echo "Running medium complexity model..."

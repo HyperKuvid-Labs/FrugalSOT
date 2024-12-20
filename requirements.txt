@@ -6,3 +6,4 @@ python-dotenv==1.0.1
 # optimum==1.23.3 #install with this command : pip install optimum[exporters]
 # add the other pip modules' versions too
 nltk==3.9.1
+scikit-learn==1.5.1

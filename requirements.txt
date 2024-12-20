@@ -1,8 +1,8 @@
-numpy==1.24.3
-transformers==4.43.3
-onnxruntime==1.20.1
+# numpy==1.24.3
+# transformers==4.43.3
+# onnxruntime==1.20.1
 python-dotenv==1.0.1
-torch==2.4.1
-optimum==1.23.3 #install with this command : pip install optimum[exporters]
+# torch==2.4.1
+# optimum==1.23.3 #install with this command : pip install optimum[exporters]
 # add the other pip modules' versions too
 nltk==3.9.1

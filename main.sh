@@ -20,20 +20,20 @@ echo "Prompt: $PROMPT"
 case "$COMPLEXITY" in
     "Low")
         echo "Running low complexity model..."
-        ollama run tinyllama "$PROMPT" > data/output.txt
+        ollama run tinyllama "$PROMPT" | tee data/output.txt
         ;;
     "Mid")
         echo "Running medium complexity model..."
-        ollama run tinydolphin "$PROMPT" > data/output.txt
+        ollama run tinydolphin "$PROMPT" | tee data/output.txt
         ;;
     "High")
         echo "Running high complexity model..."
-        ollama run gemma2:2b "$PROMPT" > data/output.txt
+        ollama run gemma2:2b "$PROMPT" | tee data/output.txt
         ;;
     *)
         echo "Unknown complexity level: $COMPLEXITY"
         echo "Running on highly inefficient model..."
-        ollama run phi "$PROMPT" > data/output.txt
+        ollama run phi "$PROMPT" | tee data/output.txt
         ;;
 esac
 

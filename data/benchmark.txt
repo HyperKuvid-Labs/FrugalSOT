@@ -1,0 +1,23 @@
+low_complexity_prompt = "Write a short story."
+# Expected Output: Low Complexity
+# Characteristics:
+# - Short length
+# - No named entities
+# - Simple sentence structure
+
+medium_complexity_prompt = "Describe how artificial intelligence impacts modern technology and society."
+# Expected Output: Mid Complexity
+# Characteristics:
+# - Moderate length
+# - Some technical terms
+# - Multiple clauses
+# - Introduces complexity through subject matter
+
+high_complexity_prompt = "Analyze the geopolitical implications of quantum computing advancements in the United States, China, and European Union, considering technological, economic, and strategic dimensions of this emerging field."
+# Expected Output: High Complexity
+# Characteristics:
+# - Long sentence
+# - Multiple named entities (United States, China, European Union)
+# - Complex syntactic structure
+# - Multiple subordinate clauses
+# - Technical and specialized vocabulary

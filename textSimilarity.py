@@ -1,3 +1,4 @@
+import sys
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -23,3 +24,10 @@ def compute_text_relevancy(prompt, answer):
     keyword_coverage = len(prompt_keywords & answer_keywords) / len(prompt_keywords)
     return 0.6 * tfidf_score + 0.4 * keyword_coverage
 
+if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Usage: python3 textSimilarity.py <text1> <text2>")
+        sys.exit(1)
+    text1 = sys.argv[1]
+    text2 = sys.argv[2]
+    print(compute_text_relevancy(text1, text2))

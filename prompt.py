@@ -1,12 +1,19 @@
 import nltk
 from nltk import word_tokenize, pos_tag, ne_chunk, sent_tokenize
 
-
+#can we not load the models up here, as i think everytime the function is called it will download the models - should verify
+# nltk.download('punkt') #tokenize the given para into sentences
+# nltk.download('averaged_perceptron_tagger') #adds tags to each word in a sentence, for ex ['NLP', 'noun']
+# nltk.download('maxent_ne_chunker') #ner of the tags or words in the given sentence
+# nltk.download('words') #contains the english word corpus, which we can load here, as of our need
+# nltk.download('punkt_tab')
+# nltk.download('averaged_perceptron_tagger_eng')
+# nltk.download('maxent_ne_chunker_tab')
 def classify_prompt_complexity(prompt):
-    nltk.download('punkt')
-    nltk.download('averaged_perceptron_tagger')
-    nltk.download('maxent_ne_chunker')
-    nltk.download('words')
+    nltk.download('punkt') #tokenize the given para into sentences
+    nltk.download('averaged_perceptron_tagger') #adds tags to each word in a sentence, for ex ['NLP', 'noun']
+    nltk.download('maxent_ne_chunker') #ner of the tags or words in the given sentence
+    nltk.download('words') #contains the english word corpus, which we can load here, as of our need
     nltk.download('punkt_tab')
     nltk.download('averaged_perceptron_tagger_eng')
     nltk.download('maxent_ne_chunker_tab')
@@ -83,3 +90,4 @@ def classify_prompt_complexity(prompt):
     print(f"Majority Complexity: {majority_complexity}\n")
     
     return majority_complexity
+    #understood

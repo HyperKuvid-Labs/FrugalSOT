@@ -7,6 +7,8 @@
 
 read -p "Enter the prompt: " PROMPT
 
+echo start="$(date +%s)"
+
 python3 main.py "$PROMPT"
 
 COMPLEXITY=$(grep -o '"complexity": *"[^"]*"' data/test.txt | sed 's/"complexity": "//; s/"$//')
@@ -19,8 +21,10 @@ echo "Prompt: $PROMPT"
 
 case "$COMPLEXITY" in
     "Low")
+        echo start="$(date +%s)"
         echo "Running low complexity model..."
         ollama run tinyllama "$PROMPT"
+        echo end="$(date +%s)"
         ;;
     "Medium")
         echo "Running medium complexity model..."
@@ -37,5 +41,8 @@ case "$COMPLEXITY" in
         ;;
 esac
 
+echo end="$(date +%s)"
+echo "Time taken: $((end-start))"
+echo "Done!!"
 # now the remaining process is to capture and store it in the vector db or direct storage
 

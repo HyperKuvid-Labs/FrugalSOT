@@ -5,11 +5,17 @@
 
 #!/bin/bash
 
+read -p "Enter the prompt: " PROMPT
+
+python3 main.py $PROMPT
+
 COMPLEXITY=$(grep -o '"complexity": *"[^"]*"' data/test.txt | sed 's/"complexity": "//; s/"$//')
-PROMPT=$(grep -o '"prompt": *"[^"]*"' data/test.txt | sed 's/"prompt": "//; s/"$//')
+# PROMPT=$(grep -o '"prompt": *"[^"]*"' data/test.txt | sed 's/"prompt": "//; s/"$//')
 
 echo "Complexity: $COMPLEXITY"
 echo "Prompt: $PROMPT"
+
+# python prompt.py $PROMPT
 
 case "$COMPLEXITY" in
     "Low")

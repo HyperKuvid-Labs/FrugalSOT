@@ -8,7 +8,14 @@ from prompt import classify_prompt_complexity
 load_dotenv()
 REMOTE_PATH = os.getenv('REMOTE_PATH')
 
-prompt = "what is AI?"
+import sys
+
+# prompt = "what is AI?"
+if len(sys.argv) < 2:
+    print("Please provide a prompt as an argument.")
+    sys.exit(1)
+
+prompt = sys.argv[1]
 complexity = classify_prompt_complexity(prompt)
 
 

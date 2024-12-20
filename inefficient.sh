@@ -5,7 +5,7 @@ read -p "Enter the prompt: " PROMPT
 start_time=$(date +%s.%3N)
 echo "Start time: $start_time"
 
-ollama run phi "$PROMPT" | tee output.txt|| { echo "Error occurred during execution"; exit 1; }
+ollama run phi "$PROMPT" | tee data/output.txt|| { echo "Error occurred during execution"; exit 1; }
 
 end_time=$(date +%s.%3N)
 echo "End time: $end_time"

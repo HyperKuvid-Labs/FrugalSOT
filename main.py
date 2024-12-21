@@ -1,12 +1,12 @@
 # import subprocess
 import json
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
 
 from prompt import classify_prompt_complexity
 
-load_dotenv()
-REMOTE_PATH = os.getenv('REMOTE_PATH')
+# load_dotenv()
+# REMOTE_PATH = os.getenv('REMOTE_PATH')
 
 import sys
 

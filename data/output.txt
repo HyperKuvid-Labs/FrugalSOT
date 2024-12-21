@@ -1,12 +1,2 @@
-AI (Artificial Intelligence) is a branch of computer science that deals with developing intelligent machines capable of perceiving and processing information, including human-like cognitive abilities such as learning, decision-making, problem-solving, and emotion. AI consists of various subfields, including:
-
-1. Artificial Neural Networks (ANN) - A neural network is a type of artificial neural system that mimics the structure and function of biological nervous systems in the brain. They are commonly used in computer vision, speech recognition, and natural language processing.
-
-2. Machine Learning (ML) - ML is the branch of AI that focuses on building algorithms and systems that can learn from data to make predictions or solve problems. It involves both statistical models and neural networks.
-
-3. Natural Language Processing (NLP) - NLP uses machine learning techniques to understand, analyze, and generate human-like language. This is essential for many applications in fields such as search engines, chatbots, and speech recognition.
-
-4. Robotics - AI is being applied to robotics to create more intelligent and adaptable machines that can carry out tasks in unstructured environments or interact with humans in social contexts.
-
-5. Natural Language Generation (NLG) - NLG creates natural-sounding language for human speech, such as text or writing. It is used for many applications, including scientific research, business communication, and marketing.
+Deep Learning is a type of machine learning that involves building models with multiple layers or neurons in the neural network. It involves solving complex problems by learning from massive amounts of data, which can be difficult for traditional linear regression and support vector machines (SVMs). In deep learning, the network is built using these deep layers that allow it to learn patterns in a variety of inputs, including high-dimensional data sets. Unlike other machine learning algorithms such as support vector machines or naive Bayes, deep learning can handle complex tasks with limited training data and can provide accurate predictions for unseen or unknown data. Deep learning is widely used in various fields such as computer vision, speech recognition, natural language processing, and healthcare.
 

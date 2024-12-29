@@ -19,7 +19,7 @@ prompt = sys.argv[1]
 complexity = classify_prompt_complexity(prompt)
 
 
-with open("data/test.txt", "w") as f:
+with open("../data/test.txt", "w") as f:
     f.write(str(json.dumps({"prompt":prompt,"complexity":complexity})))
 
 # command = ["scp", "data/test.txt", REMOTE_PATH]

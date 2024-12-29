@@ -7,3 +7,4 @@ python-dotenv==1.0.1
 # add the other pip modules' versions too
 nltk==3.9.1
 scikit-learn==1.5.1
+sentence-transformers==3.3.1

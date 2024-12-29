@@ -1,7 +1,6 @@
 import nltk
 from nltk import word_tokenize, pos_tag, ne_chunk, sent_tokenize
 
-
 #can we not load the models up here, as i think everytime the function is called it will download the models - should verify
 # nltk.download('punkt') #tokenize the given para into sentences
 # nltk.download('averaged_perceptron_tagger') #adds tags to each word in a sentence, for ex ['NLP', 'noun']

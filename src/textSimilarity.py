@@ -18,7 +18,7 @@ def calculate_contextual_relevance(prompt, response, complexity):
     elif complexity == "High":
         threshold = 0.6934
     
-    print(threshold)
+    #print(threshold)
     
     return {
         "relevance_score": float(relevance_score),
@@ -112,6 +112,8 @@ def main():
 # By understanding these different aspects and analyzing their strengths and weaknesses, researchers and developers can choose the most suitable computational approach to achieve optimal AI performance for diverse applications.
 
 #  """
+    print("Running similarity test....")
+    
     with open("../data/test.txt", "r") as file:
         data = json.load(file)
         prompt = data["prompt"]

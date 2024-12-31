@@ -1,5 +1,5 @@
 {
-  "prompt": "what is water?",
+  "prompt": "why is the sky blue",
   "complexity": "Low",
   "relevant": "True"
 }

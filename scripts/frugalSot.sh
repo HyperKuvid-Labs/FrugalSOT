@@ -20,14 +20,14 @@
 read -p "Enter the prompt: " PROMPT
 
 start_time=$(date +%s.%3N)
-echo "Start time: $start_time"
+echo "And the clock starts ticking! Start time: $start_time"
 
 python ../src/main.py "$PROMPT"
 
 COMPLEXITY=$(grep -o '"complexity": *"[^"]*"' ../data/test.txt | sed 's/"complexity": "//; s/"$//')
 
-echo "Complexity: $COMPLEXITY"
-echo "Prompt: $PROMPT"
+echo "Analyzing the complexity... Turns out it's $COMPLEXITY. Let's unleash the right model!"
+echo "You said: '$PROMPT' — Let's dive in!"
 
 run_model(){
     #local $PROMPT = "$1"
@@ -35,20 +35,20 @@ run_model(){
 
     case "$COMPLEXITY" in
         "Low")
-            echo "Running low complexity model (tinyllama)..."
+            echo "Going lightweight with tinyllama—quick and efficient!"
             ollama run tinyllama "$PROMPT" | tee ../data/output.txt
             ;;
         "Mid")
-            echo "Running medium complexity model (tinydolphin)..."
+            echo "Stepping it up! Mid-tier tinydolphin is on the job."
             ollama run tinydolphin "$PROMPT" | tee ../data/output.txt
             ;;
         "High")
-            echo "Running high complexity model (gemma2 2b)..."
+            echo "Heavy lifting ahead—gemma2 2b is ready to roar!"
             ollama run gemma2:2b "$PROMPT" | tee ../data/output.txt
             ;;
         *)
-            echo "Unknown complexity level: $COMPLEXITY"
-            echo "Running on highly inefficient model (phi-2.7b)..."
+            #echo "Unknown complexity level: $COMPLEXITY"
+            echo "When in doubt, go all out! Deploying phi-2.7b for brute-force brilliance."
             ollama run phi "$PROMPT" | tee ../data/output.txt
             ;;
     esac
@@ -77,13 +77,13 @@ check_relevance() {
     while true; do
         python ../src/textSimilarity.py
         RELEVANT=$(grep -o '"relevant": *"[^"]*"' ../data/test.txt | sed 's/"relevant": "//; s/"$//')
-        echo $RELEVANT
+        #echo $RELEVANT
 
         if [[ "$RELEVANT" == "True" ]]; then
-            echo "The response generated is relevant."
+            echo "🎯 Bullseye! The response is right on point."
             break
         else
-            echo "The response generated is irrelevant. Increasing model complexity..."
+            echo "Hmm, not quite there. Switching gears for better insights..."
 
             case "$COMPLEXITY" in
                 "Low")
@@ -99,7 +99,7 @@ check_relevance() {
                     run_model "$PROMPT" "Inefficient"
                     ;;
                 "Inefficient")
-                    echo "No more complex models available. Exiting loop."
+                    echo "We've maxed out our complexity settings. If this doesn’t work, nothing will."
                     break
                     ;;
             esac
@@ -111,12 +111,12 @@ run_model
 check_relevance
 
 end_time=$(date +%s.%3N)
-echo "End time: $end_time"
+echo "And that's a wrap! End time: $end_time."
 time_diff_ms=$(awk "BEGIN {printf \"%.0f\", ($end_time - $start_time) * 1000}")
-echo "Time taken: $time_diff_ms ms"
+echo "Mission accomplished in a blazing $time_diff_ms ms. 🚀"
 
 # python textSimilarity.py
 
 # RELEVANT=$(grep -o '"relevant": *"[^"]*"' data/test.txt | sed 's/"relevant": "//; s/"$//')
 
-echo "Done!!"
+echo "All done! Your output is ready. Time to take a bow. 🏆"

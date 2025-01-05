@@ -1,5 +1,5 @@
 {
-  "prompt": "why is the sky blue",
-  "complexity": "Low",
+  "prompt": "what is crypto?",
+  "complexity": "Mid",
   "relevant": "True"
 }

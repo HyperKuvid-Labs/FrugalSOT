@@ -17,6 +17,23 @@
 
 #!/bin/bash
 
+total_ram_kb=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+total_ram_gb=$(echo "scale=2; $total_ram_kb / 1024 / 1024" | bc)
+echo "Total RAM: $total_ram_gb GB"
+
+Models=$(python ../src/modelInitialization.py "$total_ram_gb")
+
+Low_model=$(echo "$Models" | jq -r '.Low')
+Mid_model=$(echo "$Models" | jq -r '.Mid')
+High_model=$(echo "$Models" | jq -r '.High')
+Unknown_model=$(echo "$Models" | jq -r '.Unknown')
+
+echo "Low Model: $Low_model"
+echo "Mid Model: $Mid_model"
+echo "High Model: $High_model"
+echo "Unknown Model: $Unknown_model"
+
+#ollama run "$Low_model" what is ai?
 read -p "Enter the prompt: " PROMPT
 
 start_time=$(date +%s.%3N)
@@ -35,21 +52,21 @@ run_model(){
 
     case "$COMPLEXITY" in
         "Low")
-            echo "Going lightweight with tinyllama—quick and efficient!"
-            ollama run tinyllama "$PROMPT" | tee ../data/output.txt
+            echo "Going lightweight with $Low_model—quick and efficient!"
+            ollama run "$Low_model" "$PROMPT" | tee ../data/output.txt
             ;;
         "Mid")
-            echo "Stepping it up! Mid-tier tinydolphin is on the job."
-            ollama run tinydolphin "$PROMPT" | tee ../data/output.txt
+            echo "Stepping it up! Mid-tier $Mid_model is on the job."
+            ollama run "$Mid_model" "$PROMPT" | tee ../data/output.txt
             ;;
         "High")
-            echo "Heavy lifting ahead—gemma2 2b is ready to roar!"
-            ollama run gemma2:2b "$PROMPT" | tee ../data/output.txt
+            echo "Heavy lifting ahead—$High_model is ready to roar!"
+            ollama run "$High_model" "$PROMPT" | tee ../data/output.txt
             ;;
         *)
             #echo "Unknown complexity level: $COMPLEXITY"
-            echo "When in doubt, go all out! Deploying phi-2.7b for brute-force brilliance."
-            ollama run phi "$PROMPT" | tee ../data/output.txt
+            echo "When in doubt, go all out! Deploying $Unknown_model for brute-force brilliance."
+            ollama run "$Unknown_model" "$PROMPT" | tee ../data/output.txt
             ;;
     esac
 }
@@ -112,8 +129,8 @@ check_relevance
 
 end_time=$(date +%s.%3N)
 echo "And that's a wrap! End time: $end_time."
-time_diff_ms=$(awk "BEGIN {printf \"%.0f\", ($end_time - $start_time) * 1000}")
-echo "Mission accomplished in a blazing $time_diff_ms ms. 🚀"
+time_diff_ms=$(awk "BEGIN {printf \"%.0f\", ($end_time - $start_time)}")
+echo "Mission accomplished in a blazing $time_diff_ms s. 🚀"
 
 # python textSimilarity.py
 

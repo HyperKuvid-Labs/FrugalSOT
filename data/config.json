@@ -1,0 +1,13 @@
+{
+    "LessThan8gb":{
+        "Low" : "tinyllama",
+        "Mid" : "tinydolphin",
+        "High" : "gemma2:2b",
+        "Uknown" : "phi"
+    },"MoreThan8GB": {
+        "Low": "llama2:7b",
+        "Mid": "mistral",
+        "High": "llama3.2:3b",
+        "VeryHigh": "llama2:13b"
+    }
+}

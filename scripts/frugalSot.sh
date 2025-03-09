@@ -89,6 +89,11 @@ run_model(){
 #         ollama run phi "$PROMPT" | tee data/output.txt
 #         ;;
 # esac
+update_complexity_in_test_file() {
+    local new_complexity="$1"
+    jq --arg new_complexity "$new_complexity" '.complexity = $new_complexity' ../data/test.txt > ../data/tmp_test.txt && mv ../data/tmp_test.txt ../data/test.txt
+}
+
 
 check_relevance() {
     while true; do
@@ -105,14 +110,17 @@ check_relevance() {
             case "$COMPLEXITY" in
                 "Low")
                     COMPLEXITY="Mid"
+                    update_complexity_in_test_file "$COMPLEXITY"
                     run_model "$PROMPT" "Mid"
                     ;;
                 "Mid")
                     COMPLEXITY="High"
+                    update_complexity_in_test_file "$COMPLEXITY"
                     run_model "$PROMPT" "High"
                     ;;
                 "High")
                     COMPLEXITY="Inefficient"
+                    update_complexity_in_test_file "$COMPLEXITY"
                     run_model "$PROMPT" "Inefficient"
                     ;;
                 "Inefficient")

@@ -1,3 +1,5 @@
 .env
 /rpienv
 /data
+/.rpienv
+/node-modules

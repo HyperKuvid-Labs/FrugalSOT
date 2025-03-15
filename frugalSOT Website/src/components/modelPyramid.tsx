@@ -54,7 +54,7 @@ export default function ModelPyramid() {
       threshold: "0.4441",
       specs: {
         parameters: "1.1 Billion",
-        memory: "1 GB",
+        memory: "2 GB",
         speed: "80s avg.",
       },
     },
@@ -82,10 +82,13 @@ export default function ModelPyramid() {
               }`}
             >
               <div
-                className="w-[260px] h-16 bg-black border border-yellow-500/30 rounded-md flex items-center justify-center backdrop-blur-md"
+                className={`w-${80 - index * 15} h-16 bg-black border border-yellow-500/30 rounded-md flex items-center justify-center backdrop-blur-md ${
+                  activeModel === model.name ? "bg-yellow-500/20" : "bg-black/50"
+                }`}
+                style={{ width: `${400 - index * 40}px` }}
               >
                 <div className="text-center">
-                  <div className="font-bold text-yellow-400 text-sm">{model.name}</div>
+                  <div className="font-bold text-yellow-400">{model.name}</div>
                   <div className="text-xs text-gray-400">{model.complexity} Complexity</div>
                 </div>
               </div>
@@ -130,7 +133,7 @@ function AnimatedDetails({
           exit={{ opacity: 0, y: position === "top" ? -10 : 10 }}
           className={`absolute ${
             position === "top" ? "bottom-full mb-2" : "top-full mt-2"
-          } left-0 right-0 bg-black border border-yellow-500/30 rounded-md p-3 backdrop-blur-md z-30 w-[260px]`}
+          } left-0 right-0 bg-black border border-yellow-500/30 rounded-md p-3 backdrop-blur-md z-30`}
         >
           <div className="text-sm mb-2">
             <span className="text-gray-400">Threshold:</span>{" "}
@@ -156,3 +159,4 @@ function AnimatedDetails({
     </AnimatePresence>
   )
 }
+

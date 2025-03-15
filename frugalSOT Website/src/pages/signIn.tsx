@@ -4,7 +4,8 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
-import { Github, Twitter, ArrowRight, Lock, Mail } from "lucide-react"
+import { Github, Twitter, ArrowRight, Lock, Mail } from "lucide-react";
+import { FaGoogle } from "react-icons/fa";
 import NeuronBackground from "../components/matrixBackground"
 
 export default function SignInPage() {
@@ -92,7 +93,7 @@ export default function SignInPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <SocialButton icon={<Github className="h-4 w-4" />} label="GitHub" />
-                <SocialButton icon={<Twitter className="h-4 w-4" />} label="Twitter" />
+                <SocialButton icon={<FaGoogle className="h-4 w-4" />} label="Google" />
               </div>
 
               {/* Signup link */}
@@ -108,7 +109,6 @@ export default function SignInPage() {
   )
 }
 
-// ✅ Corrected Floating Input Component
 function FloatingInput({ id, type, label, icon, value, onChange, error }: { id: string; type: string; label: string; icon: React.ReactNode; value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; error?: string }) {
   const [isFocused, setIsFocused] = useState(false)
   const [hasValue, setHasValue] = useState(!!value)

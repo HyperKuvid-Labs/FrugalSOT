@@ -5,7 +5,8 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { motion, useAnimation } from "framer-motion"
 import {Link} from "react-router-dom";
-import { Cpu, Zap, BarChart3, Github, Twitter, ArrowRight } from "lucide-react"
+import { Cpu, Zap, BarChart3, Github, Twitter, ArrowRight, Mail } from "lucide-react";
+import { FaGoogle } from "react-icons/fa";
 import NeuronBackground from "../components/matrixBackground";
 import ModelPyramid from "../components/modelPyramid";
 import RadialProgress from "../components/radialProgress";
@@ -227,38 +228,23 @@ export default function HomePage() {
             Model <span className="text-yellow-400">Tiering</span>
         </h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
-            FrugalSOT dynamically selects the most appropriate model based on request complexity, optimizing for both
-            performance and relevance.
+                FrugalSOT dynamically selects the most appropriate model based on request complexity, optimizing for both
+                performance and relevance. This dynamic stack is specifically optimized for <b>Raspberry Pi 5</b>, adjusting in real-time to device constraints.
         </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div className="grid gap-8 items-center">
         {/* Model Pyramid - Reduced width */}
         <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="h-[450px] flex items-center justify-center xl:w-[80%]"
+            className="h-[450px] flex items-center justify-center"
         >
             <ModelPyramid />
         </motion.div>
-
-        {/* Image Section - Increased width */}
-        <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="flex items-center justify-center h-[450px] xl:w-full h-[550px]"
-        >
-            <img
-            src="../../public/image.png"
-            alt="Model Visualization"
-            className="w-full max-w-[500px] h-auto object-cover rounded-xl border border-yellow-500/30"
-            />
-        </motion.div>
-        </div>
+      </div>
     </div>
     </section>
 
@@ -276,25 +262,13 @@ export default function HomePage() {
             </div>
 
             <div className="flex space-x-6">
-              <a href="#" className="text-gray-400 hover:text-yellow-400 transition-colors">
+              <a href="https://github.com/HARISH20205/RPI" className="text-gray-400 hover:text-yellow-400 transition-colors">
                 <Github className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
               </a>
-              <a href="#" className="text-gray-400 hover:text-yellow-400 transition-colors">
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
-              </a>
-            </div>
-          </div>
-
-          <div className="border-t border-yellow-500/20 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <div className="text-sm text-gray-400">© 2025 FrugalSOT. All rights reserved.</div>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="#" className="text-sm text-gray-400 hover:text-yellow-400">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-sm text-gray-400 hover:text-yellow-400">
-                Terms of Service
+              <a href="mailto:frugalsot@gmail.com" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                <Mail className="h-5 w-5" />
+                <span className="sr-only">Gmail</span>
               </a>
             </div>
           </div>

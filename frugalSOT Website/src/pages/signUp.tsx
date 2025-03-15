@@ -45,7 +45,7 @@ export default function SignUpPage() {
       try{
         const resp = await axios.post("http://localhost:5000/api/sign-up", {name, email, password});
         console.log("SignUp successfull", resp.data);
-        navigate('/');
+        navigate('/documentationDownload');
       }catch(err){
         console.error('Error during signup:', err);
       }

@@ -40,7 +40,7 @@ export default function SignInPage() {
       try{
         const resp = await axios.post("http://localhost:5000/api/sign-in", {email, password});
         console.log("SignIn successfull", resp.data);
-        navigate('/');
+        navigate('//documentationDownload');
       }catch(err){
         console.error('Error during signin:', err);
       }

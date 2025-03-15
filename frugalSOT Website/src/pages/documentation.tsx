@@ -63,51 +63,28 @@ export default function DocumentationPage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.6 }}>
             <h3 className="text-xl font-medium mb-4 text-yellow-400">How to contribute</h3>
 
-            {/* <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="bg-yellow-500 text-black rounded-full w-6 h-6 flex items-center justify-center mt-0.5 flex-shrink-0">
-                  1
-                </div>
-                <p>Review the documentation thoroughly</p>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="bg-yellow-500 text-black rounded-full w-6 h-6 flex items-center justify-center mt-0.5 flex-shrink-0">
-                  2
-                </div>
-                <p>Submit your suggestions through our feedback form</p>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="bg-yellow-500 text-black rounded-full w-6 h-6 flex items-center justify-center mt-0.5 flex-shrink-0">
-                  3
-                </div>
-                <p>Join our community to discuss improvements</p>
-              </div>
-            </div> */}
-
             <div className="mt-8">
-              <button className="inline-flex items-center justify-center rounded-md border border-yellow-500 text-yellow-400 px-4 py-2 hover:bg-yellow-500/10 transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black">
-                Provide Feedback
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </button>
+                <div className="flex items-center space-x-6">
+                    <button className="inline-flex items-center justify-center rounded-md border border-yellow-500 text-yellow-400 px-4 py-2 hover:bg-yellow-500/10 transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black">
+                    Provide Feedback
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                    </button>
+                    <a href="https://github.com/HARISH20205/RPI" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                    <Github className="h-5 w-5" />
+                    <span className="sr-only">GitHub</span>
+                    </a>
+                    <a href="mailto:frugalsot@gmail.com" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                    <Mail className="h-5 w-5" />
+                    <span className="sr-only">Gmail</span>
+                    </a>
+                </div>
             </div>
           </motion.div>
         </div>
       </main>
 
-      <footer className="border-t border-yellow-500/20 py-6">
-         <div className="flex space-x-6">
-            <a href="https://github.com/HARISH20205/RPI" className="text-gray-400 hover:text-yellow-400 transition-colors">
-            <Github className="h-5 w-5" />
-            <span className="sr-only">GitHub</span>
-            </a>
-            <a href="mailto:frugalsot@gmail.com" className="text-gray-400 hover:text-yellow-400 transition-colors">
-            <Mail className="h-5 w-5" />
-            <span className="sr-only">Gmail</span>
-            </a>
-        </div>
-      </footer>
+      {/* <footer className="border-t border-yellow-500/20 py-6">
+      </footer> */}
     </div>
   )
 }

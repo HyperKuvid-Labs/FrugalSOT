@@ -85,9 +85,6 @@ FrugalSOT is actively being developed to function as a full CLI tool for streaml
 ## 🤝 Contributing
 We welcome contributions! Feel free to submit issues, pull requests, or suggestions to enhance FrugalSOT.
 
-## 📜 License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
 ## 📬 Contact
 For questions or collaborations, reach out to:
 📧 Email: frugalSot@gmail.com  

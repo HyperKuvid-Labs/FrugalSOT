@@ -23,7 +23,7 @@ def classify_prompt_complexity(prompt):
         length_complexity = "Low"
     elif 6 <= length <= 10:
         length_complexity = "Mid"
-    else:
+    else:   
         length_complexity = "High"
 
     # NER Classification using NLTK

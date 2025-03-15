@@ -7,6 +7,8 @@ import { Link } from "react-router-dom"
 import { Github, ArrowRight, Lock, Mail, User } from "lucide-react"
 import { FaGoogle } from "react-icons/fa"
 import NeuronBackground from "../components/matrixBackground"
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUpPage() {
   const [name, setName] = useState("")
@@ -14,8 +16,9 @@ export default function SignUpPage() {
   const [password, setPassword] = useState("")
   const [errors, setErrors] = useState<{ name?: string; email?: string; password?: string }>({})
   const [passwordStrength, setPasswordStrength] = useState(0)
+  const navigate = useNavigate();
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const newErrors: { name?: string; email?: string; password?: string } = {}
 
@@ -39,7 +42,13 @@ export default function SignUpPage() {
 
     if (Object.keys(newErrors).length === 0) {
       console.log({ name, email, password })
-      // Handle form submission
+      try{
+        const resp = await axios.post("http://localhost:5000/api/sign-up", {name, email, password});
+        console.log("SignUp successfull", resp.data);
+        navigate('/');
+      }catch(err){
+        console.error('Error during signup:', err);
+      }
     }
   }
 

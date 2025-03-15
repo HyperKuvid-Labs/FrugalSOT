@@ -6,15 +6,18 @@ import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 import { Github, Twitter, ArrowRight, Lock, Mail } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
-import NeuronBackground from "../components/matrixBackground"
+import NeuronBackground from "../components/matrixBackground";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom"
 
 export default function SignInPage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({})
+  const navigate = useNavigate();
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async(e: React.FormEvent) => {
     e.preventDefault()
     const newErrors: { email?: string; password?: string } = {}
 
@@ -34,7 +37,13 @@ export default function SignInPage() {
 
     if (Object.keys(newErrors).length === 0) {
       console.log({ email, password })
-      // Handle form submission
+      try{
+        const resp = await axios.post("http://localhost:5000/api/sign-in", {email, password});
+        console.log("SignIn successfull", resp.data);
+        navigate('/');
+      }catch(err){
+        console.error('Error during signin:', err);
+      }
     }
   }
 

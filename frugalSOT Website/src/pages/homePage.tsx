@@ -106,14 +106,16 @@ export default function HomePage() {
                 transition={{ delay: 0.5, duration: 0.8 }}
                 className="flex flex-wrap gap-4"
               >
+                <Link to="/sign-up">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="px-6 py-3 bg-yellow-500 text-black rounded-md font-medium hover:bg-yellow-400 transition-colors flex items-center"
                 >
-                  Get Started
+                  Signup to get the Documentation
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </motion.button>
+                </motion.button></Link>
+                <Link to="https://github.com/HARISH20205/RPI/">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -121,7 +123,7 @@ export default function HomePage() {
                 >
                   View on GitHub
                   <Github className="ml-2 h-4 w-4" />
-                </motion.button>
+                </motion.button></Link>
               </motion.div>
             </motion.div>
 

@@ -52,6 +52,10 @@ export default function SignUpPage() {
     }
   }
 
+  function handleGoogleLogin = () => {
+    window.open("http://loalchost:5000/auth/google");
+  }
+
   useEffect(() => {
     let strength = 0
     if (password.length >= 8) strength += 1
@@ -125,8 +129,8 @@ export default function SignUpPage() {
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <SocialButton icon={<Github />} label="GitHub" />
-                <SocialButton icon={<FaGoogle />} label="Google" />
+                {/* <SocialButton icon={<Github />} label="GitHub" /> */}
+                <SocialButton icon={<FaGoogle />} label="Google" onSubmit={handleGoogleLogin}/>
               </div>
 
               {/* Sign-in link */}

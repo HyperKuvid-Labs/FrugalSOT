@@ -49,6 +49,8 @@ passport.use(
       try {
         const emails = profile.emails || [];
         const email = emails.length > 0 ? emails[0].value : null;
+        console.log(profile);
+        console.log(profile.displayName);
         
         if(!email){
           console.log("No emails found with this github account");
@@ -61,8 +63,8 @@ passport.use(
         if (!user) {
           const newUser = new User({
             userId : userId,
-            name: profile.displayName || "pradheep",
-            email: email || "mantissa6789@gmail.com",
+            name: profile.displayName,
+            email: email,
             password: null,
           });
           await newUser.save();

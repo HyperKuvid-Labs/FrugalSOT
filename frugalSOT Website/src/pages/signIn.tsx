@@ -47,6 +47,10 @@ export default function SignInPage() {
     }
   }
 
+  function handleGoogleLogin = () => {
+    window.open("http://localhost:5000/auth/google");
+  }
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
@@ -79,7 +83,7 @@ export default function SignInPage() {
 
                 <FloatingInput id="password" type="password" label="Password" icon={<Lock className="h-4 w-4" />} value={password} onChange={(e) => setPassword(e.target.value)} error={errors.password} />
 
-                <div className="flex items-center justify-between">
+                {/* <div className="flex items-center justify-between">
                   <label className="flex items-center cursor-pointer">
                     <input type="checkbox" className="sr-only peer" />
                     <div className="w-4 h-4 border border-yellow-500/50 rounded peer-checked:bg-yellow-500 peer-checked:border-yellow-500 transition-colors"></div>
@@ -87,7 +91,7 @@ export default function SignInPage() {
                   </label>
 
                   <a href="#" className="text-sm text-yellow-400 hover:underline">Forgot password?</a>
-                </div>
+                </div> */}
 
                 <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" className="w-full py-3 bg-yellow-500 text-black rounded-md font-medium hover:bg-yellow-400 transition-colors flex items-center justify-center">
                   Sign In<ArrowRight className="ml-2 h-4 w-4" />
@@ -101,8 +105,8 @@ export default function SignInPage() {
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <SocialButton icon={<Github className="h-4 w-4" />} label="GitHub" />
-                <SocialButton icon={<FaGoogle className="h-4 w-4" />} label="Google" />
+                {/* <SocialButton icon={<Github className="h-4 w-4" />} label="GitHub" /> */}
+                <SocialButton icon={<FaGoogle className="h-4 w-4" />} label="Google" onClick={handleGoogleLogin}/>
               </div>
 
               {/* Signup link */}

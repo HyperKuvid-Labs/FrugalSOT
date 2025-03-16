@@ -40,7 +40,7 @@ export default function SignInPage() {
     if (Object.keys(newErrors).length === 0) {
       console.log({ email, password });
       try {
-        const resp = await axios.post("http://localhost:5000/api/sign-in", {
+        const resp = await axios.post("https://harish20205-frugalsot.hf.space/api/sign-in", {
           email,
           password,
         });
@@ -53,7 +53,7 @@ export default function SignInPage() {
   };
 
   function handleGoogleLogin() {
-    window.open("http://localhost:5000/auth/google");
+    window.open("https://harish20205-frugalsot.hf.space/auth/google");
   }
 
   useEffect(() => {

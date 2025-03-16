@@ -17,7 +17,7 @@ app.use(express.json());
 // addinf cors lets see
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["https://frugalsot.vercel.app/", "https://harish20205-frugalsot.hf.space/"],
     credentials: true, // This allows cookies to be sent cross-origin
   })
 );

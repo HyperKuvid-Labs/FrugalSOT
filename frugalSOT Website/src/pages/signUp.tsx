@@ -4,7 +4,7 @@ import type React from "react";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Github, ArrowRight, Lock, Mail, User } from "lucide-react";
+import { ArrowRight, Lock, Mail, User } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
 import NeuronBackground from "../components/matrixBackground";
 import axios from "axios";
@@ -52,8 +52,17 @@ export default function SignUpPage() {
           email,
           password,
         });
+
+        console.log(resp.data.message);
+        console.log(resp.status);
+
+        if(resp.status == 400){
+          window.alert("User already exists");
+          window.location.reload();
+        }else{
         console.log("SignUp successfull", resp.data);
         navigate("/documentationDownload");
+        }
       } catch (err) {
         console.error("Error during signup:", err);
       }

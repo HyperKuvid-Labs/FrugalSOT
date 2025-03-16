@@ -4,14 +4,14 @@ import type React from "react";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Github, Twitter, ArrowRight, Lock, Mail } from "lucide-react";
+import { ArrowRight, Lock, Mail } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
 import NeuronBackground from "../components/matrixBackground";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function SignInPage() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [_, setMousePosition] = useState({ x: 0, y: 0 });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<{ email?: string; password?: string }>(
@@ -45,7 +45,7 @@ export default function SignInPage() {
           password,
         });
         console.log("SignIn successfull", resp.data);
-        navigate("//documentationDownload");
+        navigate("/documentationDownload");
       } catch (err) {
         console.error("Error during signin:", err);
       }

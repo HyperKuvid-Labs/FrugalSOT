@@ -1,31 +1,29 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useEffect } from "react"
-import { motion, useAnimation } from "framer-motion"
-import {Link} from "react-router-dom";
-import { Cpu, Zap, BarChart3, Github, Twitter, ArrowRight, Mail } from "lucide-react";
-import { FaGoogle } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { Link } from "react-router-dom";
+import { Cpu, BarChart3, Github, ArrowRight, Mail } from "lucide-react";
 import NeuronBackground from "../components/matrixBackground";
 import ModelPyramid from "../components/modelPyramid";
-import RadialProgress from "../components/radialProgress";
 // import ComplexityCalculator from "@/components/complexity-calculator"
 
 export default function HomePage() {
-  const controls = useAnimation()
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const controls = useAnimation();
+  const [_, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    controls.start({ opacity: 1, y: 0 })
+    controls.start({ opacity: 1, y: 0 });
 
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-    }
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
 
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [controls])
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [controls]);
 
   return (
     <div className="min-h-screen bg-black text-white font-inter overflow-hidden w-full">
@@ -36,7 +34,11 @@ export default function HomePage() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-lg border-b border-yellow-500/20">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xl font-bold text-yellow-400">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-xl font-bold text-yellow-400"
+            >
               Frugal<span className="text-white">SOT</span>
             </motion.div>
 
@@ -68,7 +70,11 @@ export default function HomePage() {
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={controls} transition={{ duration: 0.6 }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={controls}
+              transition={{ duration: 0.6 }}
+            >
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -87,7 +93,10 @@ export default function HomePage() {
                 className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
               >
                 Run AI models on <br />
-                <span className="text-yellow-400">resource-constrained</span> devices
+                <span className="text-yellow-400">
+                  resource-constrained
+                </span>{" "}
+                devices
               </motion.h1>
 
               <motion.p
@@ -96,8 +105,9 @@ export default function HomePage() {
                 transition={{ delay: 0.4, duration: 0.8 }}
                 className="text-gray-400 mb-8 max-w-lg"
               >
-                FrugalSOT dynamically selects the optimal model based on request complexity, enabling efficient AI
-                inference on edge devices like Raspberry Pi 5.
+                FrugalSOT dynamically selects the optimal model based on request
+                complexity, enabling efficient AI inference on edge devices like
+                Raspberry Pi 5.
               </motion.p>
 
               <motion.div
@@ -107,23 +117,25 @@ export default function HomePage() {
                 className="flex flex-wrap gap-4"
               >
                 <Link to="/sign-up">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-6 py-3 bg-yellow-500 text-black rounded-md font-medium hover:bg-yellow-400 transition-colors flex items-center"
-                >
-                  Signup to get the Documentation
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </motion.button></Link>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-6 py-3 bg-yellow-500 text-black rounded-md font-medium hover:bg-yellow-400 transition-colors flex items-center"
+                  >
+                    Signup to get the Documentation
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </motion.button>
+                </Link>
                 <Link to="https://github.com/HARISH20205/RPI/">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-6 py-3 bg-black/50 border border-yellow-500/30 rounded-md backdrop-blur-md hover:bg-yellow-500/10 transition-colors flex items-center"
-                >
-                  View on GitHub
-                  <Github className="ml-2 h-4 w-4" />
-                </motion.button></Link>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-6 py-3 bg-black/50 border border-yellow-500/30 rounded-md backdrop-blur-md hover:bg-yellow-500/10 transition-colors flex items-center"
+                  >
+                    View on GitHub
+                    <Github className="ml-2 h-4 w-4" />
+                  </motion.button>
+                </Link>
               </motion.div>
             </motion.div>
 
@@ -181,7 +193,11 @@ export default function HomePage() {
                       { label: "Low", value: "0.4441" },
                       { label: "Mid", value: "0.6537" },
                       { label: "High", value: "0.6934" },
-                      { label: "The results above are after so many trial and test of validating 100 prompts of each complexity, will now update dynamically", value: "" },
+                      {
+                        label:
+                          "The results above are after so many trial and test of validating 100 prompts of each complexity, will now update dynamically",
+                        value: "",
+                      },
                     ]}
                     icon={<BarChart3 className="h-4 w-4 text-yellow-400" />}
                     delay={0.8}
@@ -192,10 +208,14 @@ export default function HomePage() {
                   <MetricsCard
                     title="Complexity Scores"
                     metrics={[
-                        {label : "Low", value: "<=4"},
-                        {label : "Mid", value: "<=8"},
-                        {label : "High", value: ">8"},
-                        {label : "The complexity score is calculated on the basis of number of words in the prompt, Named Entity Recognition(NER), and Syntactic Complexity", value: ""}
+                      { label: "Low", value: "<=4" },
+                      { label: "Mid", value: "<=8" },
+                      { label: "High", value: ">8" },
+                      {
+                        label:
+                          "The complexity score is calculated on the basis of number of words in the prompt, Named Entity Recognition(NER), and Syntactic Complexity",
+                        value: "",
+                      },
                     ]}
                     icon={<BarChart3 className="h-4 w-4 text-yellow-400" />}
                     delay={0.8}
@@ -215,42 +235,43 @@ export default function HomePage() {
       </section>
 
       {/* Model Visualization */}
-    {/* Model Visualization */}
-    <section className="py-20 relative">
-    <div className="absolute inset-0 bg-gradient-to-b from-black via-yellow-900/5 to-black"></div>
-    <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-16"
-        >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Model <span className="text-yellow-400">Tiering</span>
-        </h2>
-        <p className="text-gray-400 max-w-2xl mx-auto">
-                FrugalSOT dynamically selects the most appropriate model based on request complexity, optimizing for both
-                performance and relevance. This dynamic stack is specifically optimized for <b>Raspberry Pi 5</b>, adjusting in real-time to device constraints.
-        </p>
-        </motion.div>
-
-        <div className="grid gap-8 items-center">
-        {/* Model Pyramid - Reduced width */}
-        <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+      {/* Model Visualization */}
+      <section className="py-20 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-yellow-900/5 to-black"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="h-[450px] flex items-center justify-center"
-        >
-            <ModelPyramid />
-        </motion.div>
-      </div>
-    </div>
-    </section>
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Model <span className="text-yellow-400">Tiering</span>
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              FrugalSOT dynamically selects the most appropriate model based on
+              request complexity, optimizing for both performance and relevance.
+              This dynamic stack is specifically optimized for{" "}
+              <b>Raspberry Pi 5</b>, adjusting in real-time to device
+              constraints.
+            </p>
+          </motion.div>
 
-
+          <div className="grid gap-8 items-center">
+            {/* Model Pyramid - Reduced width */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="h-[450px] flex items-center justify-center"
+            >
+              <ModelPyramid />
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="border-t border-yellow-500/20 py-12 relative">
@@ -260,15 +281,23 @@ export default function HomePage() {
               <div className="text-xl font-bold text-yellow-400 mb-2">
                 Frugal<span className="text-white">SOT</span>
               </div>
-              <p className="text-gray-400 text-sm">Efficient AI inference on resource-constrained devices.</p>
+              <p className="text-gray-400 text-sm">
+                Efficient AI inference on resource-constrained devices.
+              </p>
             </div>
 
             <div className="flex space-x-6">
-              <a href="https://github.com/HARISH20205/RPI" className="text-gray-400 hover:text-yellow-400 transition-colors">
+              <a
+                href="https://github.com/HARISH20205/RPI"
+                className="text-gray-400 hover:text-yellow-400 transition-colors"
+              >
                 <Github className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
               </a>
-              <a href="mailto:frugalsot@gmail.com" className="text-gray-400 hover:text-yellow-400 transition-colors">
+              <a
+                href="mailto:frugalsot@gmail.com"
+                className="text-gray-400 hover:text-yellow-400 transition-colors"
+              >
                 <Mail className="h-5 w-5" />
                 <span className="sr-only">Gmail</span>
               </a>
@@ -277,7 +306,7 @@ export default function HomePage() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
 
 // Metrics Card Component
@@ -288,11 +317,11 @@ function MetricsCard({
   delay = 0,
   customContent = null,
 }: {
-  title: string
-  metrics: { label: string; value: string }[]
-  icon: React.ReactNode
-  delay?: number
-  customContent?: React.ReactNode
+  title: string;
+  metrics: { label: string; value: string }[];
+  icon: React.ReactNode;
+  delay?: number;
+  customContent?: React.ReactNode;
 }) {
   return (
     <motion.div
@@ -315,13 +344,15 @@ function MetricsCard({
           {metrics.map((metric, index) => (
             <div key={index} className="flex justify-between items-center">
               <span className="text-xs text-gray-400">{metric.label}</span>
-              <span className="text-sm font-medium text-yellow-400">{metric.value}</span>
+              <span className="text-sm font-medium text-yellow-400">
+                {metric.value}
+              </span>
             </div>
           ))}
         </div>
       )}
     </motion.div>
-  )
+  );
 }
 
 // Clock Icon Component
@@ -342,6 +373,5 @@ function Clock(props: any) {
       <circle cx="12" cy="12" r="10" />
       <polyline points="12 6 12 12 16 14" />
     </svg>
-  )
+  );
 }
-

@@ -1,9 +1,11 @@
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { Download, ChevronRight, Terminal, Mail, Github } from "lucide-react"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Download, ChevronRight, Mail, Github } from "lucide-react";
 
 export default function DocumentationPage() {
-  const [pdfLink, setPdfLink] = useState("https://drive.google.com/file/d/1ieGhM26ERgIc7z43Amjy4EK_CAATEVM0/view?usp=sharing")
+  const [pdfLink, _] = useState(
+    "https://drive.google.com/file/d/1ieGhM26ERgIc7z43Amjy4EK_CAATEVM0/view?usp=sharing"
+  );
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
@@ -23,13 +25,19 @@ export default function DocumentationPage() {
 
       <main className="flex-1 container mx-auto py-12 px-4">
         <div className="max-w-3xl mx-auto">
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.2 }}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              <span className="text-yellow-400">Thank you</span> for signing up with us
+              <span className="text-yellow-400">Thank you</span> for signing up
+              with us
             </h2>
 
             <p className="text-lg text-gray-300 mb-8">
-              This is our documentation. Please download and suggest solutions. Soon this'll be a CLI tool😉
+              This is our documentation. Please download and suggest solutions.
+              Soon this'll be a CLI tool😉
             </p>
           </motion.div>
 
@@ -43,8 +51,12 @@ export default function DocumentationPage() {
               <div className="p-6">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                   <div>
-                    <h3 className="text-xl font-medium mb-2 text-yellow-400">Documentation PDF</h3>
-                    <p className="text-gray-400">Complete guide with examples and best practices</p>
+                    <h3 className="text-xl font-medium mb-2 text-yellow-400">
+                      Documentation PDF
+                    </h3>
+                    <p className="text-gray-400">
+                      Complete guide with examples and best practices
+                    </p>
                   </div>
 
                   <a
@@ -60,24 +72,36 @@ export default function DocumentationPage() {
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.6 }}>
-            <h3 className="text-xl font-medium mb-4 text-yellow-400">How to contribute</h3>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            <h3 className="text-xl font-medium mb-4 text-yellow-400">
+              How to contribute
+            </h3>
 
             <div className="mt-8">
-                <div className="flex items-center space-x-6">
-                    <button className="inline-flex items-center justify-center rounded-md border border-yellow-500 text-yellow-400 px-4 py-2 hover:bg-yellow-500/10 transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black">
-                    Provide Feedback
-                    <ChevronRight className="ml-2 h-4 w-4" />
-                    </button>
-                    <a href="https://github.com/HARISH20205/RPI" className="text-gray-400 hover:text-yellow-400 transition-colors">
-                    <Github className="h-5 w-5" />
-                    <span className="sr-only">GitHub</span>
-                    </a>
-                    <a href="mailto:frugalsot@gmail.com" className="text-gray-400 hover:text-yellow-400 transition-colors">
-                    <Mail className="h-5 w-5" />
-                    <span className="sr-only">Gmail</span>
-                    </a>
-                </div>
+              <div className="flex items-center space-x-6">
+                <button className="inline-flex items-center justify-center rounded-md border border-yellow-500 text-yellow-400 px-4 py-2 hover:bg-yellow-500/10 transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black">
+                  Provide Feedback
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </button>
+                <a
+                  href="https://github.com/HARISH20205/RPI"
+                  className="text-gray-400 hover:text-yellow-400 transition-colors"
+                >
+                  <Github className="h-5 w-5" />
+                  <span className="sr-only">GitHub</span>
+                </a>
+                <a
+                  href="mailto:frugalsot@gmail.com"
+                  className="text-gray-400 hover:text-yellow-400 transition-colors"
+                >
+                  <Mail className="h-5 w-5" />
+                  <span className="sr-only">Gmail</span>
+                </a>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -86,6 +110,5 @@ export default function DocumentationPage() {
       {/* <footer className="border-t border-yellow-500/20 py-6">
       </footer> */}
     </div>
-  )
+  );
 }
-

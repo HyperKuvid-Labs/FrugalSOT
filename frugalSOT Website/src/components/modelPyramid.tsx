@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ModelData {
-  name: string
-  complexity: string
-  threshold: string
+  name: string;
+  complexity: string;
+  threshold: string;
   specs: {
-    parameters: string
-    memory: string
-    speed: string
-  }
+    parameters: string;
+    memory: string;
+    speed: string;
+  };
 }
 
 export default function ModelPyramid() {
-  const [activeModel, setActiveModel] = useState<string | null>(null)
+  const [activeModel, setActiveModel] = useState<string | null>(null);
 
   const models: ModelData[] = [
     {
@@ -58,12 +58,12 @@ export default function ModelPyramid() {
         speed: "80s avg.",
       },
     },
-  ]
+  ];
 
   return (
     <div className="relative h-full w-full flex flex-col items-center justify-center">
       {/* Pyramid */}
-      <div className="relative w-full max-w-md h-[400px] flex flex-col items-center">
+      <div className="relative w-full max-w-md h-[400px] md:h-[600px] flex flex-col items-center">
         {models.map((model, index) => (
           <motion.div
             key={index}
@@ -71,10 +71,13 @@ export default function ModelPyramid() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1, duration: 0.5 }}
             className="absolute"
-            style={{ top: `${index * 100}px` }}
+            style={{
+              top: `${index * (100 + (window.innerWidth < 768 ? 20 : 0))}px`,
+            }}
           >
             <motion.div
-              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 1.05 }}
+              onTap={() => setActiveModel(model.name)}
               onHoverStart={() => setActiveModel(model.name)}
               onHoverEnd={() => setActiveModel(null)}
               className={`relative cursor-pointer transition-all duration-300 ${
@@ -82,10 +85,12 @@ export default function ModelPyramid() {
               }`}
             >
               <div
-                className={`w-${80 - index * 15} h-16 bg-black border border-yellow-500/30 rounded-md flex items-center justify-center backdrop-blur-md ${
+                className={`w-${80 - index * 15} h-16 md:h-20 bg-black border border-yellow-500/30 rounded-md flex items-center justify-center backdrop-blur-md ${
                   activeModel === model.name ? "bg-yellow-500/20" : "bg-black/50"
                 }`}
-                style={{ width: `${400 - index * 40}px` }}
+                style={{
+                  width: `${400 - index * (40 + (window.innerWidth < 768 ? 10 : 0))}px`,
+                }}
               >
                 <div className="text-center">
                   <div className="font-bold text-yellow-400">{model.name}</div>
@@ -103,8 +108,8 @@ export default function ModelPyramid() {
               {/* Connecting lines */}
               {index < models.length - 1 && (
                 <>
-                  <div className="absolute left-0 bottom-0 w-px h-[84px] bg-yellow-500/30"></div>
-                  <div className="absolute right-0 bottom-0 w-px h-[84px] bg-yellow-500/30"></div>
+                  <div className="absolute left-0 bottom-0 w-px bg-yellow-500/30"></div>
+                  <div className="absolute right-0 bottom-0 w-px bg-yellow-500/30"></div>
                 </>
               )}
             </motion.div>
@@ -112,7 +117,7 @@ export default function ModelPyramid() {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 function AnimatedDetails({
@@ -120,9 +125,9 @@ function AnimatedDetails({
   model,
   position,
 }: {
-  isVisible: boolean
-  model: ModelData
-  position: "top" | "bottom"
+  isVisible: boolean;
+  model: ModelData;
+  position: "top" | "bottom";
 }) {
   return (
     <AnimatePresence>
@@ -157,6 +162,5 @@ function AnimatedDetails({
         </motion.div>
       )}
     </AnimatePresence>
-  )
+  );
 }
-

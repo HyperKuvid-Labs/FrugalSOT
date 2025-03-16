@@ -145,10 +145,10 @@ export default function HomePage() {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="relative"
             >
-              <div className="relative h-[400px] w-full flex items-center justify-center">
-                {/* 3D Raspberry Pi Model Placeholder */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-64 h-64 relative">
+              <div className="relative w-full flex flex-col sm:flex-row items-center justify-center gap-4">
+                {/* RPI Model */}
+                <div className="relative h-[300px] sm:h-[400px] w-full sm:w-auto flex items-center justify-center">
+                  <div className="w-48 sm:w-64 h-48 sm:h-64 relative">
                     <motion.div
                       animate={{
                         rotateY: [0, 360],
@@ -163,16 +163,17 @@ export default function HomePage() {
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 to-yellow-500/5 rounded-xl border border-yellow-500/30 backdrop-blur-md transform perspective-1000 rotateX(10deg)"></div>
                       <div className="absolute inset-2 bg-black/80 rounded-lg flex items-center justify-center">
-                        <Cpu className="h-16 w-16 text-yellow-400" />
+                        <Cpu className="h-12 w-12 sm:h-16 sm:w-16 text-yellow-400" />
                       </div>
-                      <div className="absolute -top-2 -left-2 w-4 h-4 bg-yellow-400 rounded-full blur-sm"></div>
-                      <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-yellow-400 rounded-full blur-sm"></div>
+                      <div className="absolute -top-2 -left-2 w-3 h-3 sm:w-4 sm:h-4 bg-yellow-400 rounded-full blur-sm"></div>
+                      <div className="absolute -bottom-2 -right-2 w-3 h-3 sm:w-4 sm:h-4 bg-yellow-400 rounded-full blur-sm"></div>
                     </motion.div>
                   </div>
                 </div>
 
-                {/* Glowing Metrics Cards */}
-                <div className="absolute top-0 right-0">
+                {/* Metrics Cards */}
+                <div className="flex flex-col gap-4 w-full px-4 justify-center items-center">
+                  {/* Execution Time Card */}
                   <MetricsCard
                     title="Execution Time"
                     metrics={[
@@ -181,12 +182,11 @@ export default function HomePage() {
                       { label: "Gemma2:2b", value: "200s" },
                       { label: "Phi:2.7b", value: "240s" },
                     ]}
-                    icon={<Clock className="h-4 w-4 text-yellow-400" />}
+                    icon={<Clock className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-400 flex" />}
                     delay={0.7}
                   />
-                </div>
 
-                <div className="absolute bottom-0 left-0">
+                  {/* Relevance Thresholds Card */}
                   <MetricsCard
                     title="Relevance Thresholds"
                     metrics={[
@@ -195,16 +195,15 @@ export default function HomePage() {
                       { label: "High", value: "0.6934" },
                       {
                         label:
-                          "The results above are after so many trial and test of validating 100 prompts of each complexity, will now update dynamically",
+                          "The results above are after so many trials and tests of validating 100 prompts of each complexity, will now update dynamically",
                         value: "",
                       },
                     ]}
-                    icon={<BarChart3 className="h-4 w-4 text-yellow-400" />}
+                    icon={<BarChart3 className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-400" />}
                     delay={0.8}
                   />
-                </div>
 
-                <div className="absolute bottom-0 right-0">
+                  {/* Complexity Scores Card */}
                   <MetricsCard
                     title="Complexity Scores"
                     metrics={[
@@ -213,23 +212,18 @@ export default function HomePage() {
                       { label: "High", value: ">8" },
                       {
                         label:
-                          "The complexity score is calculated on the basis of number of words in the prompt, Named Entity Recognition(NER), and Syntactic Complexity",
+                          "The complexity score is calculated on the basis of number of words in the prompt, Named Entity Recognition (NER), and Syntactic Complexity",
                         value: "",
                       },
                     ]}
-                    icon={<BarChart3 className="h-4 w-4 text-yellow-400" />}
+                    icon={<BarChart3 className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-400" />}
                     delay={0.8}
-                    // customContent={
-                    //   <div className="grid grid-cols-3 gap-2 mt-2">
-                    //     <RadialProgress value={75} label="CPU" />
-                    //     <RadialProgress value={45} label="RAM" />
-                    //     <RadialProgress value={30} label="GPU" />
-                    //   </div>
-                    // }
                   />
                 </div>
               </div>
             </motion.div>
+
+
           </div>
         </div>
       </section>

@@ -156,7 +156,7 @@ export default function SignUpPage() {
                 </motion.button>
               </form>
 
-              {/* Social Login */}
+              {/* Social Login
               <div className="relative my-6">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-yellow-500/20"></div>
@@ -170,16 +170,16 @@ export default function SignUpPage() {
 
               <div className="flex items-center justify-center">
                 {/* <SocialButton icon={<Github />} label="GitHub" /> */}
-                <SocialButton
+                {/* <SocialButton
                   icon={<FaGoogle />}
                   label="Google"
                   func={handleGoogleLogin}
                 />
-              </div>
+              </div> */} 
 
               {/* Sign-in link */}
               <p className="mt-6 text-sm text-gray-400 text-center">
-                Already have an account?{" "}
+                Already have an account Or Sign-in with Google?{" "}
                 <Link to="/sign-in" className="text-yellow-400 hover:underline">
                   Sign in
                 </Link>

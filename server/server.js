@@ -1,29 +1,34 @@
 import express from "express";
+import session from "express-session";
 import dotenv from "dotenv";
-import loadEnvConfigOfMongodb from "./config/dotenv.config.js";
-import userRoutes from "./routes/user.routes.js";
 import connectDB from "./config/db.js";
-import cors from "cors";
+import passport from "./config/passport.js"; // Import passport AFTER dotenv
+import userRoutes from "./routes/user.routes.js";
+import authRoutes from "./routes/auth.routes.js";
 
-dotenv.config();
+dotenv.config(); // Load .env variables
+connectDB();
 
 const app = express();
 
-loadEnvConfigOfMongodb();
-connectDB();
+app.use(express.json());
 
+// ✅ Configure session
 app.use(
-  cors({
-    origin: "http://localhost:5173", // Only allow your frontend origin
-    credentials: true, // Allow cookies if needed
+  session({
+    secret: process.env.SESSION_SECRET || "defaultSecret",
+    resave: false,
+    saveUninitialized: false,
   })
 );
 
-app.use(express.json());
+// ✅ Initialize Passport (Must be after session middleware)
+app.use(passport.initialize());
+app.use(passport.session());
 
+// ✅ Routes
 app.use("/api", userRoutes);
+app.use("/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

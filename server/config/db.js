@@ -1,24 +1,21 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config(); // Load environment variables
 
 const connectDB = async () => {
   try {
-    const dbName = process.env.DB_NAME || "";
-    if (!dbName) {
-      throw new Error("Database name is missing");
-    }
-    const mongo_uri = process.env.MONGODB_URI || "";
+    const mongo_uri = process.env.MONGODB_URI;
+
     if (!mongo_uri) {
-      throw new Error("Mongo URI is missing");
+      throw new Error("MongoDB URI is missing in .env file");
     }
 
-    await mongoose.connect(mongo_uri, {
-    //   useNewUrlParser: true,
-    //   useUnifiedTopology: true,
-    });
+    const conn = await mongoose.connect(mongo_uri);
 
-    console.log("MongoDB connected");
+    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
   } catch (err) {
-    console.error("Couldn't connect to MongoDB", err.message);
+    console.error(`❌ Couldn't connect to MongoDB: ${err.message}`);
     process.exit(1);
   }
 };

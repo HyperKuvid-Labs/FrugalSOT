@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, Lock, Mail, User } from "lucide-react";
-import { FaGoogle } from "react-icons/fa";
+// import { FaGoogle } from "react-icons/fa";
 import NeuronBackground from "../components/matrixBackground";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -69,9 +69,9 @@ export default function SignUpPage() {
     }
   };
 
-  function handleGoogleLogin() {
-    window.open("https://harish20205-frugalsot.hf.space/auth/google");
-  }
+  // function handleGoogleLogin() {
+  //   window.open("https://harish20205-frugalsot.hf.space/auth/google");
+  // }
 
   useEffect(() => {
     let strength = 0;
@@ -299,25 +299,25 @@ function PasswordStrengthMeter({ strength }: { strength: number }) {
   );
 }
 
-// Social Button Component
-function SocialButton({
-  icon,
-  label,
-  func,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  func: () => void;
-}) {
-  return (
-    <motion.button
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      className="py-2 px-4 bg-black/50 border border-yellow-500/30 rounded-md flex items-center justify-center space-x-2 hover:bg-yellow-500/10 transition-colors"
-      onClick={func}
-    >
-      {icon}
-      <span>{label}</span>
-    </motion.button>
-  );
-}
+// // Social Button Component
+// function SocialButton({
+//   icon,
+//   label,
+//   func,
+// }: {
+//   icon: React.ReactNode;
+//   label: string;
+//   func: () => void;
+// }) {
+//   return (
+//     <motion.button
+//       whileHover={{ scale: 1.05 }}
+//       whileTap={{ scale: 0.95 }}
+//       className="py-2 px-4 bg-black/50 border border-yellow-500/30 rounded-md flex items-center justify-center space-x-2 hover:bg-yellow-500/10 transition-colors"
+//       onClick={func}
+//     >
+//       {icon}
+//       <span>{label}</span>
+//     </motion.button>
+//   );
+// }

@@ -282,7 +282,7 @@ export default function HomePage() {
 
             <div className="flex space-x-6">
               <a
-                href="https://github.com/HARISH20205/RPI"
+                href="https://github.com/HyperKuvid-Labs/FrugalSOT-CLI"
                 className="text-gray-400 hover:text-yellow-400 transition-colors"
               >
                 <Github className="h-5 w-5" />

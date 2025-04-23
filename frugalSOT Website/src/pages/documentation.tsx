@@ -37,7 +37,7 @@ export default function DocumentationPage() {
 
             <p className="text-lg text-gray-300 mb-8">
               This is our documentation. Please download and suggest solutions.
-              Soon this'll be a CLI tool😉
+              CLI tool😉 - <a href="https://github.com/HyperKuvid-Labs/FrugalSOT-CLI">FrugalSOT-CLI</a>
             </p>
           </motion.div>
 
@@ -88,7 +88,7 @@ export default function DocumentationPage() {
                   <ChevronRight className="ml-2 h-4 w-4" />
                 </button>
                 <a
-                  href="https://github.com/HARISH20205/RPI"
+                  href="https://github.com/HyperKuvid-Labs/FrugalSOT"
                   className="text-gray-400 hover:text-yellow-400 transition-colors"
                 >
                   <Github className="h-5 w-5" />

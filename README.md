@@ -90,7 +90,7 @@ For questions or collaborations, reach out to:
 📧 Email: frugalSot@gmail.com  
 🌍 Project Repository: [GitHub - HARISH20205/RPI](https://github.com/HARISH20205/RPI)  
 
-###checkout out CLI tool for this 
+## Check out the CLI tool for this 
 [Github - HyperKuvid-Labs/FrugalSOT-CLI](https://github.com/HyperKuvid-Labs/FrugalSOT-CLI)
 ---
 🚀 *Optimized AI Inference for Edge Devices*

@@ -4,7 +4,7 @@ import { Download, ChevronRight, Mail, Github } from "lucide-react";
 
 export default function DocumentationPage() {
   const [pdfLink, _] = useState(
-    "https://drive.google.com/file/d/1ieGhM26ERgIc7z43Amjy4EK_CAATEVM0/view?usp=sharing"
+    "https://drive.google.com/file/d/1T9Az0jdMY0JH554uzwnHr4-NwqXO1-hK/view?usp=sharing"
   );
 
   return (
@@ -52,13 +52,12 @@ export default function DocumentationPage() {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                   <div>
                     <h3 className="text-xl font-medium mb-2 text-yellow-400">
-                      Documentation PDF
+                      Research Paper Submission
                     </h3>
                     <p className="text-gray-400">
-                      Complete guide with examples and best practices
+                      Submitted for review - acceptance expected soon
                     </p>
-                  </div>
-
+                  </div>  
                   <a
                     href={pdfLink}
                     download

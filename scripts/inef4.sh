@@ -78,11 +78,10 @@ run_model(){
 
 
 check_relevance() {
-    while true; do
-        python ../src/textSimilarity.py
-        RELEVANT=$(grep -o '"relevant": *"[^"]*"' ../data/test.txt | sed 's/"relevant": "//; s/"$//')
-        echo $RELEVANT
-    done
+    python ../src/textSimilarity.py
+    RELEVANT=$(grep -o '"relevant": *"[^"]*"' ../data/test.txt | sed 's/"relevant": "//; s/"$//')
+    echo $RELEVANT
+
 }
 
 run_model 

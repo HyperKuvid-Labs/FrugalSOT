@@ -9,6 +9,8 @@ import { Cpu, BarChart3, Github, ArrowRight, Mail } from "lucide-react";
 import NeuronBackground from "../components/matrixBackground";
 import ModelPyramid from "../components/modelPyramid";
 // import ComplexityCalculator from "@/components/complexity-calculator"
+import Results from "@/components/result";
+import FrugalSOTFormulaCard from "@/components/prompt_complexity";
 
 export default function HomePage() {
   const controls = useAnimation();
@@ -37,28 +39,26 @@ export default function HomePage() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-xl font-bold text-yellow-400"
+              className="flex items-center gap-3"
             >
-              Frugal<span className="text-white">SOT</span>
+              <img 
+                src="/frugalsot_logo.png" 
+                alt="FrugalSOT Logo" 
+                className="h-8 w-8"
+              />
+              <div className="text-xl font-bold text-yellow-400">
+                Frugal<span className="text-white">SOT</span>
+              </div>
             </motion.div>
 
             <div className="flex items-center space-x-4">
-              <Link to="/sign-in">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-4 py-1.5 text-sm bg-black/50 border border-yellow-500/30 rounded-md backdrop-blur-md hover:bg-yellow-500/10 transition-colors"
-                >
-                  Sign In
-                </motion.button>
-              </Link>
-              <Link to="/sign-up">
+              <Link to="/documentation">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="px-4 py-1.5 text-sm bg-yellow-500 text-black rounded-md font-medium hover:bg-yellow-400 transition-colors"
                 >
-                  Sign Up
+                  Documentation
                 </motion.button>
               </Link>
             </div>
@@ -82,7 +82,7 @@ export default function HomePage() {
                 className="mb-4 inline-block"
               >
                 <div className="px-3 py-1 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-xs text-yellow-400 backdrop-blur-md">
-                  EDGE AI OPTIMIZATION FRAMEWORK
+                  EFFICIENT LLM INFERENCE
                 </div>
               </motion.div>
 
@@ -92,11 +92,8 @@ export default function HomePage() {
                 transition={{ delay: 0.3, duration: 0.8 }}
                 className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
               >
-                Run AI models on <br />
-                <span className="text-yellow-400">
-                  resource-constrained
-                </span>{" "}
-                devices
+                <span className="text-yellow-400">Efficient</span> AI inference <br />
+                  without sacrificing quality       
               </motion.h1>
 
               <motion.p
@@ -105,9 +102,8 @@ export default function HomePage() {
                 transition={{ delay: 0.4, duration: 0.8 }}
                 className="text-gray-400 mb-8 max-w-lg"
               >
-                FrugalSOT dynamically selects the optimal model based on request
-                complexity, enabling efficient AI inference on edge devices like
-                Raspberry Pi 5.
+                FrugalSOT intelligently cascades through lightweight to complex models based on 
+                query complexity. Experimentally proven on Raspberry Pi 5 - making efficient LLM deployment a reality.
               </motion.p>
 
               <motion.div
@@ -116,17 +112,17 @@ export default function HomePage() {
                 transition={{ delay: 0.5, duration: 0.8 }}
                 className="flex flex-wrap gap-4"
               >
-                <Link to="/sign-up">
+                <Link to="/documentation">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="px-6 py-3 bg-yellow-500 text-black rounded-md font-medium hover:bg-yellow-400 transition-colors flex items-center"
                   >
-                    Signup to get the Documentation
+                    Documentation
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </motion.button>
                 </Link>
-                <Link to="https://github.com/HARISH20205/RPI/">
+                <Link to="https://github.com/HyperKuvid-Labs/FrugalSOT">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -177,10 +173,14 @@ export default function HomePage() {
                   <MetricsCard
                     title="Execution Time"
                     metrics={[
-                      { label: "tinyllama", value: "80s" },
-                      { label: "tinydolphin", value: "100s" },
-                      { label: "Gemma2:2b", value: "200s" },
-                      { label: "Phi:2.7b", value: "240s" },
+                      { label: "TinyLlama (1.1B, Low)", value: "~100s" },
+                      { label: "TinyDolphin (2.7B, Mid)", value: "~80s" },
+                      { label: "Gemma2 2b (High)", value: "240-280s" },
+                      { label: "Phi 3.7b (Fallback)", value: "240-280s" },
+                      {
+                        label: "FrugalSOT Overall Average: 200s (21.34% faster than Phi 3.7b alone)",
+                        value: "",
+                      },
                     ]}
                     icon={<Clock className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-400 flex" />}
                     delay={0.7}
@@ -190,12 +190,12 @@ export default function HomePage() {
                   <MetricsCard
                     title="Relevance Thresholds"
                     metrics={[
-                      { label: "Low", value: "0.4441" },
-                      { label: "Mid", value: "0.6537" },
-                      { label: "High", value: "0.6934" },
+                      { label: "Low Complexity", value: "0.4441" },
+                      { label: "Mid Complexity", value: "0.6537" },
+                      { label: "High Complexity", value: "0.6934" },
                       {
                         label:
-                          "The results above are after so many trials and tests of validating 100 prompts of each complexity, will now update dynamically",
+                          "Derived from 250 validation prompts across diverse topics. Thresholds adapt dynamically via low-pass filtering (α=0.2) based on past relevance scores.",
                         value: "",
                       },
                     ]}
@@ -207,13 +207,13 @@ export default function HomePage() {
                   <MetricsCard
                     title="Complexity Scores"
                     metrics={[
-                      { label: "Low", value: "<=4" },
-                      { label: "Mid", value: "<=8" },
-                      { label: "High", value: ">8" },
+                      { label: "Low", value: "≤4" },
+                      { label: "Mid", value: "5-8" },
+                      { label: "High", value: "≥9" },
                       {
                         label:
-                          "The complexity score is calculated on the basis of number of words in the prompt, Named Entity Recognition (NER), and Syntactic Complexity",
-                        value: "",
+                          "Calculated as C = 1·LC + 2·NERC + 3·SC (Low=0, Mid=2, High=4 points each), based on prompt length (LC), named entities (NERC), and syntactic structure (SC).",
+                        value:  "",
                       },
                     ]}
                     icon={<BarChart3 className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-400" />}
@@ -228,7 +228,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Model Visualization */}
       {/* Model Visualization */}
       <section className="py-20 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-yellow-900/5 to-black"></div>
@@ -254,6 +253,8 @@ export default function HomePage() {
 
           <div className="grid gap-8 items-center">
             {/* Model Pyramid - Reduced width */}
+            <br />
+            <br />
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -267,13 +268,82 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Results Section */}
+      <section className="py-20 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-yellow-900/5 to-black"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Performance <span className="text-yellow-400">Results</span>
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Real-world performance analysis demonstrating FrugalSOT's efficiency
+              in optimizing AI inference on resource-constrained devices.
+            </p>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <Results />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Mathematical Framework Section */}
+      <section className="py-20 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-yellow-900/5 to-black"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Prompt <span className="text-yellow-400">Complexity Engine</span>
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Understanding the algorithmic foundation behind FrugalSOT's prompt complexity 
+              classification system and adaptive threshold mechanisms.
+            </p>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <FrugalSOTFormulaCard />
+          </motion.div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="border-t border-yellow-500/20 py-12 relative">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-6 md:mb-0">
-              <div className="text-xl font-bold text-yellow-400 mb-2">
-                Frugal<span className="text-white">SOT</span>
+              <div className="flex items-center gap-3 mb-2">
+                <img
+                  src="/frugalsot_logo.png"
+                  alt="FrugalSOT Logo"
+                  className="h-6 w-6"
+                />
+                <div className="text-xl font-bold text-yellow-400">
+                  Frugal<span className="text-white">SOT</span>
+                </div>
               </div>
               <p className="text-gray-400 text-sm">
                 Efficient AI inference on resource-constrained devices.
@@ -282,14 +352,14 @@ export default function HomePage() {
 
             <div className="flex space-x-6">
               <a
-                href="https://github.com/HyperKuvid-Labs/FrugalSOT-CLI"
+                href="https://github.com/HyperKuvid-Labs/FrugalSOT"
                 className="text-gray-400 hover:text-yellow-400 transition-colors"
               >
                 <Github className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
               </a>
               <a
-                href="mailto:frugalsot@gmail.com"
+                href="mailto:hyperkuvidlabs@gmail.com?subject=FrugalSOT%20Inquiry&body=Hello%20FrugalSOT%20Team,%0A%0AI%20am%20interested%20in%20learning%20more%20about..."
                 className="text-gray-400 hover:text-yellow-400 transition-colors"
               >
                 <Mail className="h-5 w-5" />

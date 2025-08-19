@@ -10,7 +10,7 @@ FrugalSOT (Frugal Search Over Models) is an optimized AI inference framework des
 </td>
 <td>
 
-![image](https://github.com/user-attachments/assets/0fe0a7f8-90f6-4eca-868d-65428aa31efa)
+![image](/frugalSOT%20Website/public/frugalsot_logo.png)
 
 </td>
 </tr>
@@ -92,5 +92,6 @@ For questions or collaborations, reach out to:
 
 ## Check out the CLI tool for this 
 [Github - HyperKuvid-Labs/FrugalSOT-CLI](https://github.com/HyperKuvid-Labs/FrugalSOT-CLI)
+
 ---
 🚀 *Optimized AI Inference for Edge Devices*

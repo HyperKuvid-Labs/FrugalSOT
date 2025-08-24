@@ -1,5 +1,5 @@
 {
-  "prompt": "Compare and contrast supervised learning, unsupervised learning, and reinforcement learning methodologies, including their mathematical foundations, practical applications, and performance evaluation metrics in real-world scenarios",
-  "complexity": "High",
+  "prompt": "What are neural networks and deep learning?",
+  "complexity": "Mid",
   "relevant": "True"
 }

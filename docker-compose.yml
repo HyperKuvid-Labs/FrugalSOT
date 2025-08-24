@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  frugalsot:
+    build: .
+    image: frugalsot-cli:latest
+    container_name: frugalsot
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      # Optional: Mount data directory to persist outputs
+      - ./data:/app/data
+    stdin_open: true
+    tty: true
+    # Example of running with a prompt
+    # command: ["What is artificial intelligence?"]
+    
+  # Alternative service for interactive use
+  frugalsot-interactive:
+    build: .
+    image: frugalsot-cli:latest
+    container_name: frugalsot-interactive
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./data:/app/data
+    stdin_open: true
+    tty: true
+    entrypoint: ["/bin/bash"]
+    profiles:
+      - interactive

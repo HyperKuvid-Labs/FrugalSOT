@@ -23,6 +23,35 @@ FrugalSOT (Frugal Search Over Models) is an optimized AI inference framework des
 - **Scalable Architecture**: Can be extended with additional lightweight models for varied use cases.
 - **Privacy-Focused**: Keeps data processing entirely on-device for enhanced security.
 
+## 🐳 Docker Usage
+
+FrugalSOT is now available as a Docker container for easy deployment and usage:
+
+### Quick Start with Docker
+
+```bash
+# Build the container
+docker build -t frugalsot-cli .
+
+# Run with a simple prompt
+docker run --rm frugalsot-cli "What is artificial intelligence?"
+
+# Run with a complex prompt
+docker run --rm frugalsot-cli "Explain the differences between supervised and unsupervised machine learning algorithms"
+```
+
+### Using Docker Compose
+
+```bash
+# Run with a prompt
+docker-compose run --rm frugalsot "What is machine learning?"
+
+# For interactive use
+docker-compose run --rm --profile interactive frugalsot-interactive
+```
+
+See [DOCKER.md](DOCKER.md) for detailed Docker usage instructions.
+
 ## 🛠️ Setup & Installation
 Follow these steps to set up and run FrugalSOT on any compatible device:
 

@@ -1,5 +1,5 @@
 {
-  "prompt": "Explain machine learning algorithms",
-  "complexity": "Low",
+  "prompt": "Compare and contrast supervised learning, unsupervised learning, and reinforcement learning methodologies, including their mathematical foundations, practical applications, and performance evaluation metrics in real-world scenarios",
+  "complexity": "High",
   "relevant": "True"
 }

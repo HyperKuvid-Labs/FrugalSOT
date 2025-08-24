@@ -1,5 +1,31 @@
 .env*
 /rpienv
-/data
 /.rpienv
 server/node_modules
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.pytest_cache/
+
+# Data files (but keep structure)
+/data/output.txt
+/data/test.txt
+/data/threshold.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.dockerignore

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# FrugalSOT CLI Wrapper
+# Usage: frugalsot-cli "your prompt here"
+
+set -e
+
+if [ $# -eq 0 ]; then
+    echo "Usage: frugalsot-cli \"your prompt here\""
+    echo "Example: frugalsot-cli \"What is artificial intelligence?\""
+    exit 1
+fi
+
+PROMPT="$1"
+
+# Check if we're running in Docker (has /app directory)
+if [ -d "/app" ]; then
+    cd /app/scripts
+    export PROMPT="$PROMPT"
+    bash frugalSot-cli.sh
+else
+    # Running locally
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    cd "$SCRIPT_DIR/scripts"
+    export PROMPT="$PROMPT"
+    bash frugalSot-cli.sh
+fi

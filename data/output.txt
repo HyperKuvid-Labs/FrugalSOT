@@ -1,2 +1,1 @@
- Crypto (abbreviation for cryptography) is a widely used term in the field of computer science and information security that refers to the study and implementation of algorithms and methods used to encrypt and decrypt data, as well as techniques designed to protect sensitive data from unauthorized access. It involves several sub-fields including hashing, encryption, digital signatures, and key management, among others. Crypto is a crucial component of many modern computing systems, as it safeguards information during transmission, storage, or execution.
-
+Mock response for Low complexity prompt: Explain machine learning algorithms

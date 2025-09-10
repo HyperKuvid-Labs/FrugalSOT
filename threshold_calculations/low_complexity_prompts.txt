@@ -1,0 +1,100 @@
+What is AI?
+Define machine learning.
+Explain deep learning.
+What is reinforcement learning?
+Simple definition of data.
+What is a computer?
+Explain cloud computing.
+What is Python?
+Define software.
+What is hardware?
+What is an algorithm?
+Describe a function.
+What is a variable?
+Explain coding.
+What is a loop?
+Define debugging.
+What is a program?
+Explain programming.
+What is a compile?
+Define AI.
+What is a neural network?
+Explain robotics.
+What is a database?
+Describe an app.
+What is the internet?
+Explain web development.
+What is Java?
+Define software testing.
+Explain binary.
+What is an IP address?
+What is encryption?
+Define cybersecurity.
+What is blockchain?
+Explain bitcoin.
+What is AI ethics?
+Define IoT.
+What is 5G?
+Explain virtual reality.
+What is augmented reality?
+Define frontend development.
+What is backend development?
+Explain API.
+What is cloud storage?
+Define big data.
+What is machine vision?
+Explain chatbot.
+What is data science?
+Define neural network.
+What is deepfake?
+Explain automation.
+What is a code editor?
+Define open source.
+What is a compiler?
+Explain Git.
+What is debugging?
+Define software engineering.
+What is HTML?
+Explain CSS.
+What is JavaScript?
+Define server.
+What is cloud computing?
+Explain data mining.
+What is artificial intelligence?
+Define algorithm.
+What is a loop?
+Explain variable.
+What is machine learning?
+Define programming.
+What is a function?
+Explain coding.
+What is a software?
+Define hardware.
+What is internet?
+Explain data.
+What is a network?
+Define database.
+What is cloud?
+What is software development?
+Explain data flow.
+What is a pixel?
+Define a web server.
+What is a URL?
+Explain email.
+What is a browser?
+Define HTTP.
+What is cloud backup?
+Explain computer virus.
+What is a firewall?
+Define mother board.
+What is RAM?
+Explain SSD.
+What is CPU?
+Define USB.
+What is Bluetooth?
+Explain IoT devices.
+What is an IP?
+What is USB?
+Explain HTML5.
+What is a cookie?
+Define cloud API.

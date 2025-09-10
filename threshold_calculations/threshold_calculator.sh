@@ -93,7 +93,7 @@ process_complexity_prompts() {
 }
 
 echo ""
-echo "📊 Counting total prompts to process..."
+echo "counting total prompts to process..."
 low_count=$(head -100 "$LOW_PROMPTS" | wc -l)
 mid_count=$(head -100 "$MID_PROMPTS" | wc -l)  
 high_count=$(head -100 "$HIGH_PROMPTS" | wc -l)
@@ -106,7 +106,7 @@ echo "  - High complexity: $high_count"
 
 if [[ -f "$THRESHOLD_FILE" ]]; then
     cp "$THRESHOLD_FILE" "${THRESHOLD_FILE}.backup.$(date +%Y%m%d_%H%M%S)"
-    echo "💾 Backed up existing threshold file"
+    echo "backed up existing threshold file"
 fi
 
 echo ""
@@ -132,7 +132,7 @@ if [[ -f "$THRESHOLD_FILE" ]]; then
     echo "final thresholds:"
     cat "$THRESHOLD_FILE" | jq .
 else
-    echo "⚠️  Warning: Threshold file not found after processing"
+    echo "warning: Threshold file not found after processing"
 fi
 
 echo ""

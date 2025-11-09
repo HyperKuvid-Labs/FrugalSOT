@@ -43,15 +43,15 @@ run_model_for_prompt() {
     local prompt="$1"
     local expected_complexity="$2"
     local model_name="$3"
-    
+
     python src/main.py "$prompt" > /dev/null 2>&1
-    
+
     echo " running model $model_name..."
-    timeout 60s ollama run "$model_name" "$prompt" > data/output.txt 2>&1
-    
+     ollama run "$model_name" "$prompt" > data/output.txt 2>&1
+
     echo "calculating similarity..."
     python src/textSimilarity.py > /dev/null 2>&1
-    
+
     echo "watha done.."
     return 0
 }
@@ -60,34 +60,34 @@ process_complexity_prompts() {
     local prompts_file="$2"
     local model_name="$3"
     local max_prompts=100
-    
+
     echo ""
     echo "processing $complexity complexity prompts with $model_name..."
     echo "reading from: $prompts_file"
-    
+
     local count=0
     local success_count=0
-    
+
     while IFS= read -r prompt && [[ $count -lt $max_prompts ]]; do
         if [[ -z "$prompt" ]]; then
             continue
         fi
-        
+
         ((count++))
         ((total_prompts++))
-        
+
         echo ""
         echo "progress: $count/$max_prompts (Total: $processed_prompts/$total_prompts)"
-        
+
         if run_model_for_prompt "$prompt" "$complexity" "$model_name"; then
             ((success_count++))
             ((processed_prompts++))
         fi
-        
+
         sleep 1
-        
+
     done < "$prompts_file"
-    
+
     echo ""
     echo "completed $complexity complexity: $success_count/$count prompts successful"
 }
@@ -95,13 +95,13 @@ process_complexity_prompts() {
 echo ""
 echo "counting total prompts to process..."
 low_count=$(head -100 "$LOW_PROMPTS" | wc -l)
-mid_count=$(head -100 "$MID_PROMPTS" | wc -l)  
+mid_count=$(head -100 "$MID_PROMPTS" | wc -l)
 high_count=$(head -100 "$HIGH_PROMPTS" | wc -l)
 total_prompts=$((low_count + mid_count + high_count))
 
 echo "total prompts to process: $total_prompts"
 echo "  - Low complexity: $low_count"
-echo "  - Mid complexity: $mid_count"  
+echo "  - Mid complexity: $mid_count"
 echo "  - High complexity: $high_count"
 
 if [[ -f "$THRESHOLD_FILE" ]]; then
@@ -114,7 +114,7 @@ echo "starintg threshold calculation..."
 start_time=$(date +%s)
 
 process_complexity_prompts "Low" "$LOW_PROMPTS" "$Low_model"
-process_complexity_prompts "Mid" "$MID_PROMPTS" "$Mid_model" 
+process_complexity_prompts "Mid" "$MID_PROMPTS" "$Mid_model"
 process_complexity_prompts "High" "$HIGH_PROMPTS" "$High_model"
 
 end_time=$(date +%s)

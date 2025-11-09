@@ -36,7 +36,7 @@ run_model_for_prompt() {
     python src/main.py "$prompt" > /dev/null 2>&1
 
     echo " running model $model_name..."
-    timeout 60s ollama run "$model_name" "$prompt" > data/output.txt 2>&1
+    ollama run "$model_name" "$prompt" > data/output.txt 2>&1
 
     echo "calculating similarity..."
     python src/textSimilarity.py > /dev/null 2>&1

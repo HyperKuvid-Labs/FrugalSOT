@@ -1,0 +1,11 @@
+Explain the basics of artificial intelligence.
+What are the applications of machine learning?
+Describe the functions of a neural network.
+What's the difference between supervised and unsupervised learning?
+Explain the working of cloud computing services.
+Describe the impact of blockchain technology in finance.
+What is the importance of cybersecurity in today's world?
+Explain the basics of natural language processing.
+Describe the role of GPUs in deep learning applications.
+What are the ethical concerns around artificial intelligence?
+

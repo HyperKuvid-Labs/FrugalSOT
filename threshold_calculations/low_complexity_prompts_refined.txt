@@ -1,0 +1,11 @@
+What is AI?
+Define machine learning.
+Explain deep learning.
+What is a neural network?
+What is Python?
+Explain cloud computing.
+What is blockchain?
+Define cybersecurity.
+What is big data?
+Explain API.
+

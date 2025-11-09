@@ -135,56 +135,28 @@ def calculate_contextual_relevance(prompt, response, complexity, thresholds):
             "updated_thresholds": thresholds
         }
 
-    # Use LLM-based semantic similarity with Qwen-2.5b
-    semantic_score = calculate_similarity_with_llm(prompt, response)
-
-    prompt_words = len(prompt.split())
-    response_words = len(response.split())
-
-    complexity_multipliers = {"low": 2, "mid": 3, "high": 4, "inefficient": 5}
-    expected_min_words = prompt_words * complexity_multipliers.get(complexity.lower(), 2)
-
-    length_score = min(1.0, response_words / expected_min_words) if expected_min_words > 0 else 0.5
-
-    prompt_keywords = set(word.lower() for word in prompt.split() if len(word) > 3)
-    response_keywords = set(word.lower() for word in response.split() if len(word) > 3)
-
-    if len(prompt_keywords) > 0:
-        keyword_overlap = len(prompt_keywords & response_keywords) / len(prompt_keywords)
-    else:
-        keyword_overlap = 0.5
-
-    combined_score = (
-        semantic_score * 0.7 +
-        length_score * 0.15 +
-        keyword_overlap * 0.15
-    )
+    # Use ONLY LLM-based semantic similarity with Qwen-2.5b (no other methods)
+    relevance_score = calculate_similarity_with_llm(prompt, response)
 
     threshold_key = complexity.lower()
 
     if threshold_key not in thresholds:
         return {
-            "relevance_score": combined_score,
-            "semantic_score": semantic_score,
-            "length_score": length_score,
-            "keyword_overlap": keyword_overlap,
+            "relevance_score": relevance_score,
             "is_relevant": True,
             "reason": "Unknown complexity level",
             "updated_thresholds": thresholds
         }
 
     old_value = thresholds[threshold_key]
-    thresholds[threshold_key] = (thresholds["alpha"] * combined_score) + ((1 - thresholds["alpha"]) * old_value)
+    thresholds[threshold_key] = (thresholds["alpha"] * relevance_score) + ((1 - thresholds["alpha"]) * old_value)
 
-    is_relevant = combined_score >= old_value
+    is_relevant = relevance_score >= old_value
 
     return {
-        "relevance_score": combined_score,
-        "semantic_score": semantic_score,
-        "length_score": length_score,
-        "keyword_overlap": keyword_overlap,
+        "relevance_score": relevance_score,
         "is_relevant": is_relevant,
-        "reason": f"Combined score {combined_score:.3f} vs threshold {old_value:.3f}",
+        "reason": f"SLM score {relevance_score:.3f} vs threshold {old_value:.3f}",
         "updated_thresholds": thresholds
     }
 
@@ -212,12 +184,9 @@ def main():
     relevance_result = calculate_contextual_relevance(prompt, response, complexity, thresholds)
 
     print(f"\n{'='*60}")
-    print(f"Semantic Score:    {relevance_result.get('semantic_score', 0):.4f}")
-    print(f"Length Score:      {relevance_result.get('length_score', 0):.4f}")
-    print(f"Keyword Overlap:   {relevance_result.get('keyword_overlap', 0):.4f}")
-    print(f"Combined Score:    {relevance_result['relevance_score']:.4f}")
-    print(f"Is Relevant:       {relevance_result['is_relevant']}")
-    print(f"Reason:            {relevance_result.get('reason', 'N/A')}")
+    print(f"SLM Relevance Score: {relevance_result['relevance_score']:.4f}")
+    print(f"Is Relevant:         {relevance_result['is_relevant']}")
+    print(f"Reason:              {relevance_result.get('reason', 'N/A')}")
     print(f"{'='*60}\n")
 
     if "updated_thresholds" in relevance_result:

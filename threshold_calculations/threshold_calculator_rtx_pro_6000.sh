@@ -33,12 +33,14 @@ run_model_for_prompt() {
     local expected_complexity="$2"
     local model_name="$3"
 
+    export THRESHOLD_FILE="threshold_rtx_pro_6000.json"
     python src/main.py "$prompt" > /dev/null 2>&1
 
     echo " running model $model_name..."
      ollama run "$model_name" "$prompt" > data/output.txt 2>&1
 
     echo "calculating similarity..."
+    export THRESHOLD_FILE="threshold_rtx_pro_6000.json"
     python src/textSimilarity.py > /dev/null 2>&1
 
     echo "done.."

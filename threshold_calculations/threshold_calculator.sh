@@ -52,7 +52,7 @@ run_model_for_prompt() {
     echo "calculating similarity..."
     python src/textSimilarity.py > /dev/null 2>&1
 
-    echo "watha done.."
+    echo "done.."
     return 0
 }
 process_complexity_prompts() {

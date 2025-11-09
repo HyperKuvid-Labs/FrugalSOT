@@ -1,7 +1,9 @@
 import json
 import os
+import re
 from pathlib import Path
-from sentence_transformers import SentenceTransformer, util
+from unsloth import FastLanguageModel
+import torch
 
 DATA_DIR = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) / "data"
 THRESHOLD_FILE_NAME = os.environ.get("THRESHOLD_FILE", "threshold.json")
@@ -24,6 +26,98 @@ def save_thresholds(thresholds):
     with open(THRESHOLD_FILE, "w") as f:
         json.dump(thresholds, f, indent=2)
 
+# Global model cache
+_model_cache = None
+_tokenizer_cache = None
+
+def load_qwen_model():
+    global _model_cache, _tokenizer_cache
+
+    if _model_cache is not None and _tokenizer_cache is not None:
+        return _model_cache, _tokenizer_cache
+
+    print("Loading Qwen-2.5B model with unsloth...")
+
+    max_seq_length = 2048
+    dtype = None  # Auto detection
+    load_in_4bit = True  # Use 4bit quantization for efficiency
+
+    model, tokenizer = FastLanguageModel.from_pretrained(
+        model_name="unsloth/Qwen2.5-1.5B-Instruct",  # Using smaller 1.5B version for efficiency
+        max_seq_length=max_seq_length,
+        dtype=dtype,
+        load_in_4bit=load_in_4bit,
+    )
+
+    # Enable fast inference
+    FastLanguageModel.for_inference(model)
+
+    _model_cache = model
+    _tokenizer_cache = tokenizer
+
+    return model, tokenizer
+
+def calculate_similarity_with_llm(string1, string2):
+    prompt = f"""You are evaluating semantic similarity between two strings.
+
+String 1: {string1}
+
+String 2: {string2}
+
+Analysis Steps:
+1. Identify the main concepts in each string
+2. Compare their semantic overlap
+3. Consider context and intent, not just keywords
+
+Provide your reasoning, then output ONLY a score between 0.0 and 1.0.
+
+Reasoning:
+[Your analysis here]
+
+Final Score:"""
+
+    model, tokenizer = load_qwen_model()
+
+    # Format as chat message
+    messages = [{"role": "user", "content": prompt}]
+    input_text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+
+    # Tokenize
+    inputs = tokenizer(input_text, return_tensors="pt").to(model.device)
+
+    # Generate response
+    with torch.no_grad():
+        outputs = model.generate(
+            **inputs,
+            max_new_tokens=256,
+            temperature=0.3,
+            do_sample=True,
+            pad_token_id=tokenizer.eos_token_id
+        )
+
+    # Decode response
+    response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+    # Extract the generated part (after the prompt)
+    if input_text in response:
+        response = response[len(input_text):].strip()
+
+    # Extract score from response using regex
+    score_match = re.search(r'Final Score:\s*([0-9]*\.?[0-9]+)', response)
+    if not score_match:
+        # Try alternative patterns
+        score_match = re.search(r'\b([0-1]\.[0-9]+)\b|\b(0\.[0-9]+)\b|\b(1\.0)\b', response)
+
+    if score_match:
+        score = float(score_match.group(1) if score_match.group(1) else score_match.group(0))
+        score = max(0.0, min(1.0, score))  # Clamp between 0 and 1
+    else:
+        print(f"Warning: Could not extract score from response. Using default 0.5")
+        print(f"Response: {response}")
+        score = 0.5
+
+    return score
+
 def calculate_contextual_relevance(prompt, response, complexity, thresholds):
     if not prompt or len(prompt.strip()) < 3:
         return {
@@ -41,12 +135,8 @@ def calculate_contextual_relevance(prompt, response, complexity, thresholds):
             "updated_thresholds": thresholds
         }
 
-    model = SentenceTransformer('BAAI/bge-large-en-v1.5')
-
-    prompt_embedding = model.encode(prompt)
-    response_embedding = model.encode(response)
-
-    semantic_score = util.cos_sim(prompt_embedding, response_embedding)[0][0].item()
+    # Use LLM-based semantic similarity with Qwen-2.5b
+    semantic_score = calculate_similarity_with_llm(prompt, response)
 
     prompt_words = len(prompt.split())
     response_words = len(response.split())
@@ -99,7 +189,7 @@ def calculate_contextual_relevance(prompt, response, complexity, thresholds):
     }
 
 def main():
-    print("Running enhanced similarity test with BAAI/bge-large-en-v1.5...")
+    print("Running enhanced similarity test with Qwen-2.5B (via unsloth)...")
 
     thresholds = load_thresholds()
 

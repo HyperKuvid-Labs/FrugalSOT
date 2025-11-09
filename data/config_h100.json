@@ -1,0 +1,7 @@
+{
+  "Low": "mistral:7b",
+  "Mid": "gemma3:12b",
+  "High": "qwen2.5:32b",
+  "Unknown": "deepseek-coder:33b"
+}
+

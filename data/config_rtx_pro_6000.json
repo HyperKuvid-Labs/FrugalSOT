@@ -1,0 +1,7 @@
+{
+  "Low": "llama3:8b",
+  "Mid": "gemma3:27b",
+  "High": "deepseek-coder-v2:32b",
+  "Unknown": "qwen2.5:32b"
+}
+

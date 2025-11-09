@@ -1,0 +1,7 @@
+{
+  "Low": "gemma3:27b",
+  "Mid": "qwen2.5:32b",
+  "High": "llama3.3:70b",
+  "Unknown": "qwen2.5:72b"
+}
+

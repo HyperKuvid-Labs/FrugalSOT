@@ -1,0 +1,7 @@
+{
+  "Low": "llama3:8b",
+  "Mid": "gemma2:9b",
+  "High": "mistral:7b",
+  "Unknown": "gemma3:12b"
+}
+

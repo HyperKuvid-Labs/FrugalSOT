@@ -1,0 +1,21 @@
+[project]
+name = "frugalsot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "accelerate>=0.25.0",
+    "bitsandbytes>=0.41.0",
+    "nltk==3.9.1",
+    "python-dotenv==1.0.1",
+    "scikit-learn==1.5.1",
+    "sentence-transformers>=5.1.2",
+    "torch>=2.1.0",
+    "transformers>=4.36.0",
+    "trl>=0.7.0",
+    "unsloth[colab-new]",
+]
+
+[tool.uv.sources]
+unsloth = { git = "https://github.com/unslothai/unsloth.git" }

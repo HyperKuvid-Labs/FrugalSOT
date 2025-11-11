@@ -1,1 +1,16 @@
-Mock response for Mid complexity prompt: What are neural networks and deep learning?
+ The Weimar Republic experienced hyperinflation in 1923, which was a major issue at the time. The country faced severe financial problems due to massive government spending and lack of control over money supply. This led to a situation where there were multiple currencies circulating in the country at the same time.
+
+The main factors contributing to hyperinflation include:
+
+1. War reparations from the Treaty of Versailles - Germany had to pay large sums of money for reparations, which led to hyperinflation because these payments were made out of thin air.
+
+2. Government's monetary policy decisions - The Weimar Republic's economic policies included interest rate controls and the creation of new currency. These decisions helped create a large amount of money supply, but they also contributed to hyperinflation.
+
+3. Occupation of the Ruhr Valley - Germany was heavily involved in World War I, and the Ruhr Valley was captured by France and the United Kingdom. This led to a significant decrease in industrial production, which increased demand for goods and services.
+
+4. Government's policy on currency devaluation - In response to hyperinflation, the Weimar Republic attempted to devalue the German currency (D-Mark), but this was met with strong opposition from the middle class. The government eventually had to abandon their attempts to devalue.
+
+5. Psychological impact of currency devaluation on the middle class - Hyperinflation can have a significant psychological impact on the middle class, as they have to use new money in their daily lives and may face financial difficulties as a result. This led to widespread discontent with the government's actions.
+
+6. Comparisons to modern monetary theory - Modern central banking policy during economic crises can learn valuable lessons from Weimar Republic's hyperinflation crisis. The main lesson is that it is crucial for central banks to control money supply when faced with extreme financial challenges, as doing so helps stabilize the economy and protect the general public from further economic turmoil.
+

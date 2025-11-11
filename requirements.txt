@@ -1,18 +1,18 @@
 # numpy==1.24.3
 # transformers==4.43.3
 # onnxruntime==1.20.1
-python-dotenv==1.0.1
+python-dotenv
 # torch==2.4.1
 # optimum==1.23.3 #install with this command : pip install optimum[exporters]
 # add the other pip modules' versions too
-nltk==3.9.1
-scikit-learn==1.5.1
-# sentence-transformers==3.3.1  # Replaced with unsloth
+nltk
+scikit-learn
+sentence-transformers==3.3.1  # Replaced with unsloth
 
 # Unsloth and dependencies for Qwen-2.5B
-unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git
-torch>=2.1.0
-transformers>=4.36.0
-trl>=0.7.0
-accelerate>=0.25.0
-bitsandbytes>=0.41.0
+git+https://github.com/unslothai/unsloth.git@main#egg=unsloth[colab-new]
+torch
+transformers
+trl
+accelerate
+bitsandbytes

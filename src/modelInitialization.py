@@ -8,7 +8,8 @@ def modelsInitialization(ramGB):
     with open(config_path, 'r') as f:
         data = json.load(f)
     
-    config = data["MoreThan8GB"] if ramGB >= 8 else data["LessThan8gb"]
+    config = data
+
     
     print(json.dumps(config))
 

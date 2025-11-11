@@ -18,8 +18,10 @@
 #!/bin/bash
 
 total_ram_kb=$(grep MemTotal /proc/meminfo | awk '{print $2}')
-total_ram_gb=$(echo "scale=2; $total_ram_kb / 1024 / 1024" | bc)
-echo "Total RAM: $total_ram_gb GB"
+# total_ram_gb=$(echo "scale=2; $total_ram_kb / 1024 / 1024" | bc)
+echo "Total RAM: 7 GB"
+
+total_ram_gb=7
 
 Models=$(python ../src/modelInitialization.py "$total_ram_gb")
 

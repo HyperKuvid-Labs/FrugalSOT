@@ -207,7 +207,7 @@ status "Downloading Go dependencies..."
 go mod download -x || go mod tidy
 
 status "Building and installing FrugalSOT..."
-make install
+$SUDO make install
 
 status "Verifying FrugalSOT installation..."
 which frugalsot

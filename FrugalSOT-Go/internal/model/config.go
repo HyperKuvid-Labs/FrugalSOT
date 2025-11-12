@@ -24,7 +24,7 @@ func GetConfigPath(filename string) string {
 	if _, err := os.Stat(filename); err == nil {
 		return filename
 	}
-	return "/usr/local/share/frugalsot/configs/" + filename
+	return "/usr/local/share/frugalsot/" + filename
 }
 
 func GetThreshold(complexity string) (float32, error) {

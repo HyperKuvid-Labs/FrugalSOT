@@ -1,10 +1,12 @@
 #!/bin/sh
 set -eu
 
+
 #############################################
 # FrugalSOT Installation Script
-# Installs Go 1.23.4, Ollama, and FrugalSOT
+# Installs Ollama and FrugalSOT
 #############################################
+
 
 status() {
     echo ""
@@ -14,33 +16,22 @@ status() {
     echo ""
 }
 
+
 error() {
     echo ""
     echo "ERROR: $*" >&2
     exit 1
 }
 
+
 # verbose output
 set -x
+
 
 # linux check
 [ "$(uname -s)" = "Linux" ] || error 'This script only supports Linux'
 
-# detect architecture
-ARCH=$(uname -m)
-status "Detected architecture: $ARCH"
 
-case "$ARCH" in
-    x86_64) 
-        GO_ARCH="amd64" 
-        ;;
-    aarch64|arm64) 
-        GO_ARCH="arm64" 
-        ;;
-    *) 
-        error "Unsupported architecture: $ARCH" 
-        ;;
-esac
 
 # setup sudo
 SUDO=""
@@ -54,6 +45,7 @@ else
     status "Running as root"
 fi
 
+
 # check for required tools
 status "Checking for required tools..."
 for cmd in curl git tar; do
@@ -65,6 +57,7 @@ for cmd in curl git tar; do
 done
 
 
+
 # if frugalsot is already installed, we need to remove it first
 if command -v frugalsot >/dev/null 2>&1; then
     FRUGALSOT_VERSION=$(frugalsot --version 2>&1 || echo "unknown")
@@ -74,66 +67,11 @@ if command -v frugalsot >/dev/null 2>&1; then
 fi
 
 
-#############################################
-# INSTALL GO 1.23.4
-#############################################
-
-status "Checking for existing Go installation..."
-if command -v go >/dev/null 2>&1; then
-    CURRENT_GO_VERSION=$(go version | awk '{print $3}')
-    status "Found existing Go: $CURRENT_GO_VERSION"
-    status "Removing old Go installation..."
-    $SUDO rm -rf /usr/local/go
-fi
-
-GO_VERSION="1.23.4"
-GO_TARBALL="go${GO_VERSION}.linux-${GO_ARCH}.tar.gz"
-GO_URL="https://go.dev/dl/${GO_TARBALL}"
-
-status "Downloading Go ${GO_VERSION} for linux/${GO_ARCH}..."
-echo "URL: $GO_URL"
-cd /tmp
-curl -fsSL -O "$GO_URL"
-
-status "Extracting Go to /usr/local/go..."
-$SUDO tar -C /usr/local -xzf "$GO_TARBALL"
-
-status "Cleaning up Go tarball..."
-rm -f "$GO_TARBALL"
-
-# Add Go to PATH for current session
-export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
-
-status "Adding Go to PATH in shell profile..."
-BASHRC="$HOME/.bashrc"
-ZSHRC="$HOME/.zshrc"
-
-if [ -f "$BASHRC" ]; then
-    if ! grep -q '/usr/local/go/bin' "$BASHRC" 2>/dev/null; then
-        echo 'export PATH=$PATH:/usr/local/go/bin' >> "$BASHRC"
-        echo 'export GOPATH=$HOME/go' >> "$BASHRC"
-        echo 'export PATH=$PATH:$GOPATH/bin' >> "$BASHRC"
-        echo "   Added to ~/.bashrc"
-    fi
-fi
-
-if [ -f "$ZSHRC" ]; then
-    if ! grep -q '/usr/local/go/bin' "$ZSHRC" 2>/dev/null; then
-        echo 'export PATH=$PATH:/usr/local/go/bin' >> "$ZSHRC"
-        echo 'export GOPATH=$HOME/go' >> "$ZSHRC"
-        echo 'export PATH=$PATH:$GOPATH/bin' >> "$ZSHRC"
-        echo "   Added to ~/.zshrc"
-    fi
-fi
-
-status "Verifying Go installation..."
-go version || error "Go installation failed"
 
 #############################################
 # INSTALL OLLAMA
 #############################################
+
 
 status "Checking for existing Ollama installation..."
 if command -v ollama >/dev/null 2>&1; then
@@ -147,6 +85,7 @@ else
     ollama --version || error "Ollama installation failed"
 fi
 
+
 status "Starting Ollama service..."
 if command -v systemctl >/dev/null 2>&1; then
     $SUDO systemctl enable ollama 2>/dev/null || true
@@ -159,16 +98,20 @@ else
     echo "Systemd not found, skipping service setup"
 fi
 
+
 #############################################
 # INSTALL FRUGALSOT
 #############################################
 
+
 REPO_URL="https://github.com/HyperKuvid-Labs/FrugalSOT.git"
 CLONE_DIR="FrugalSOT"
+
 
 status "Creating temporary directory..."
 TEMP_DIR=$(mktemp -d)
 echo "Temp directory: $TEMP_DIR"
+
 
 cleanup() {
     status "Cleaning up temporary files..."
@@ -176,22 +119,27 @@ cleanup() {
 }
 trap cleanup EXIT
 
+
 cd "$TEMP_DIR"
+
 
 status "Cloning FrugalSOT repository..."
 echo "Repository: $REPO_URL"
 echo "Target directory: $CLONE_DIR"
 git clone "$REPO_URL"
 
+
 status "Verifying clone and entering project directory..."
 if [ ! -d "$CLONE_DIR" ]; then
     error "Cloned directory '$CLONE_DIR' not found. Clone may have failed."
 fi
 
+
 cd FrugalSOT
 echo "Current directory: $(pwd)"
 echo "Directory contents:"
 ls -la
+
 
 cd FrugalSOT-Go
 echo "Current directory: $(pwd)"
@@ -199,15 +147,16 @@ echo "Directory contents:"
 ls -la
 
 
+status "Installing pre-built FrugalSOT binary..."
+if [ ! -f "bin/frugalsot" ]; then
+    error "Pre-built binary not found at bin/frugalsot"
+fi
 
-status "Showing go.mod contents..."
-cat go.mod
 
-status "Downloading Go dependencies..."
-go mod download -x || go mod tidy
+# make binary executable and copy to system location
+chmod +x bin/frugalsot
+$SUDO cp bin/frugalsot /usr/local/bin/frugalsot
 
-status "Building and installing FrugalSOT..."
-$SUDO make install
 
 # install configs folder
 status "Installing FrugalSOT configuration files..."
@@ -219,21 +168,86 @@ else
     error "configs directory not found in $(pwd)"
 fi
 
+
 status "Verifying FrugalSOT installation..."
 which frugalsot
 ls -lh /usr/local/bin/frugalsot
 ls -lh /usr/local/share/frugalsot/configs
 
+
+#############################################
+# CONFIGURE FRUGALSOT
+#############################################
+
+
+set +x
+
+
+status "Configuration Setup"
+echo ""
+read -p "Would you like to use the default configuration? (yes/no) " yn
+
+
+case $yn in
+    [Yy]|[Yy][Ee][Ss])
+        echo ""
+        echo "Using default configuration..."
+        CONFIG_PATH="/usr/local/share/frugalsot/configs/config.yaml"
+        $SUDO tee "$CONFIG_PATH" > /dev/null <<EOF
+Low: tinyllama
+Mid: tinydolphin
+High: gemma2:2b
+Fallback: phi:2.7b
+EmbeddingModel: all-minilm:33m
+EOF
+        echo "Default configuration written to $CONFIG_PATH"
+        ;;
+    
+    [Nn]|[Nn][Oo])
+        echo ""
+        echo "Enter your custom model configuration:"
+        echo ""
+        
+        read -p "Low complexity model: " low_model
+        read -p "Mid complexity model: " mid_model
+        read -p "High complexity model: " high_model
+        read -p "Fallback model: " fallback_model
+        read -p "Embedding model: " embedding_model
+        
+        if [ -z "$low_model" ] || [ -z "$mid_model" ] || [ -z "$high_model" ] || [ -z "$fallback_model" ] || [ -z "$embedding_model" ]; then
+            error "All model fields are required. Configuration failed."
+        fi
+        
+        CONFIG_PATH="/usr/local/share/frugalsot/configs/config.yaml"
+        $SUDO tee "$CONFIG_PATH" > /dev/null <<EOF
+Low: $low_model
+Mid: $mid_model
+High: $high_model
+Fallback: $fallback_model
+EmbeddingModel: $embedding_model
+EOF
+        echo ""
+        echo "Custom configuration written to $CONFIG_PATH"
+        ;;
+    
+    *)
+        error "Invalid response. Please answer yes or no."
+        ;;
+esac
+
+
 #############################################
 # FINAL CHECKS
 #############################################
 
-set +x
 
+echo ""
 status "Installation Summary"
-echo "  Go:        $(go version)"
 echo "  Ollama:    $(ollama --version 2>&1 | head -1 || echo 'installed')"
 echo "  FrugalSOT: $(which frugalsot)"
+echo ""
+echo "Configuration:"
+cat "$CONFIG_PATH"
 echo ""
 echo "Installation complete!"
 echo ""

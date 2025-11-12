@@ -1,0 +1,5 @@
+Low: tinyllama
+Mid: tinydolphin
+High: gemma2:2b
+Fallback: phi:2.7b
+EmbeddingModel: all-minilm:33m

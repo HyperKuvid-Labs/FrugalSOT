@@ -209,9 +209,20 @@ go mod download -x || go mod tidy
 status "Building and installing FrugalSOT..."
 $SUDO make install
 
+# install configs folder
+status "Installing FrugalSOT configuration files..."
+if [ -d "configs" ]; then
+    $SUDO mkdir -p /usr/local/share/frugalsot
+    $SUDO cp -r configs /usr/local/share/frugalsot/
+    echo "   Configs installed to /usr/local/share/frugalsot/configs"
+else
+    error "configs directory not found in $(pwd)"
+fi
+
 status "Verifying FrugalSOT installation..."
 which frugalsot
 ls -lh /usr/local/bin/frugalsot
+ls -lh /usr/local/share/frugalsot/configs
 
 #############################################
 # FINAL CHECKS

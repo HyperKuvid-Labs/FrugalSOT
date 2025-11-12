@@ -29,7 +29,8 @@ func main() {
 	comp := complexity.ClassifyPromptComplexity(prompt)
 	fmt.Printf("complexity: %s\n", comp)
 
-	modelConfig, err := model.LoadConfig("configs/config.yaml")
+	configPath := model.GetConfigPath("configs/config.yaml")
+	modelConfig, err := model.LoadConfig(configPath)
 
 	embeddingModel, ok := modelConfig["EmbeddingModel"]
 

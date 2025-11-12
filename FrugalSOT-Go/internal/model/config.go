@@ -20,8 +20,16 @@ func LoadConfig(filename string) (ModelConfig, error) {
 	return config, err
 }
 
+func GetConfigPath(filename string) string {
+	if _, err := os.Stat(filename); err == nil {
+		return filename
+	}
+	return "/usr/local/share/frugalsot/configs/" + filename
+}
+
 func GetThreshold(complexity string) (float32, error) {
-	thresholdConfig, err := LoadConfig("configs/threshold.yaml")
+	configPath := GetConfigPath("configs/threshold.yaml")
+	thresholdConfig, err := LoadConfig(configPath)
 	if err != nil {
 		return 0, err
 	}
@@ -35,7 +43,8 @@ func GetThreshold(complexity string) (float32, error) {
 
 func UpdateThreshold(complexity string, relevanceScore float32) error {
 	// Tnew = α × R + (1-α) × Told
-	thresholdConfig, err := LoadConfig("configs/threshold.yaml")
+	configPath := GetConfigPath("configs/threshold.yaml")
+	thresholdConfig, err := LoadConfig(configPath)
 	if err != nil {
 		return err
 	}
@@ -54,6 +63,6 @@ func UpdateThreshold(complexity string, relevanceScore float32) error {
 	if err != nil {
 		return err
 	}
-	err = os.WriteFile("configs/threshold.yaml", data, 0644)
+	err = os.WriteFile(configPath, data, 0644)
 	return err
 }

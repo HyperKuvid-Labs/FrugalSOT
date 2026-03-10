@@ -1,126 +1,197 @@
-# FrugalSOT - Frugal Search Over Models
+# FrugalSOT
 
-<table>
-<tr>
-<td>
-
-## 🚀 Introduction
-FrugalSOT (Frugal Search Over Models) is an optimized AI inference framework designed for resource-constrained devices. Inspired by FrugalGPT, it dynamically selects machine learning models based on request complexity to optimize computational resource allocation while maintaining response quality. By leveraging techniques such as prompt length analysis, named entity recognition (NER), and syntactic structure evaluation, FrugalSOT ensures efficient and adaptive model selection.
-
-</td>
-<td>
-
-![image](/frugalSOT%20Website/public/frugalsot_logo.png)
-
-</td>
-</tr>
-</table>
-
-## 📌 Features
-- **Dynamic Model Selection**: Uses a multi-tiered model approach based on request complexity.
-- **Ollama Integration**: Executes models locally, eliminating cloud dependency.
-- **Efficient Resource Utilization**: Minimizes computational load while ensuring high-quality responses.
-- **Scalable Architecture**: Can be extended with additional lightweight models for varied use cases.
-- **Privacy-Focused**: Keeps data processing entirely on-device for enhanced security.
-
-## 🐳 Docker Usage
-
-FrugalSOT is now available as a Docker container for easy deployment and usage:
-
-### Quick Start with Docker
-
-```bash
-# Build the container
-docker build -t frugalsot-cli .
-
-# Run with a simple prompt
-docker run --rm frugalsot-cli "What is artificial intelligence?"
-
-# Run with a complex prompt
-docker run --rm frugalsot-cli "Explain the differences between supervised and unsupervised machine learning algorithms"
-```
-
-### Using Docker Compose
-
-```bash
-# Run with a prompt
-docker-compose run --rm frugalsot "What is machine learning?"
-
-# For interactive use
-docker-compose run --rm --profile interactive frugalsot-interactive
-```
-
-See [DOCKER.md](DOCKER.md) for detailed Docker usage instructions.
-
-## 🛠️ Setup & Installation
-Follow these steps to set up and run FrugalSOT on any compatible device:
-
-```bash
-# 1. Clone the repository
-$ git clone https://github.com/HARISH20205/RPI.git
-
-# 2. Navigate to the project directory
-$ cd RPI
-
-# 3. Create a virtual environment
-$ python -m venv rpienv
-
-# 4. Activate the virtual environment (for Ubuntu/Linux)
-$ source rpienv/bin/activate
-
-# 5. Install dependencies (this may take some time)
-$ pip install -r requirements.txt
-
-# 6. Run the FrugalSOT script
-$ cd scripts && bash frugalSot.sh
-```
-
-## 📌 Usage
-After installation, FrugalSOT will dynamically determine the most efficient model for each request based on:
-- **Prompt Length** 📏
-- **Named Entity Recognition (NER)** 🔍
-- **Syntactic Complexity** 🧠
-
-### Model Selection Criteria:
-| Complexity Level | Assigned Model |
-|-----------------|--------------|
-| Low (Score ≤ 4) | TinyLLaMA |
-| Mid (5 ≤ Score ≤ 8) | TinyDolphin |
-| High (Score > 8) | Gemma 2 2B |
-| Last Resort | Phi 2.7B (fallback) |
-
-## 🖥️ System Requirements
-- **Hardware**: Can run on any compatible device 🖥️
-- **OS**: Ubuntu 22.04 or equivalent Linux environment 🐧
-- **Software Dependencies**: Ollama, Python 3.8+, Pip, Bash
-
-## 📊 Performance Metrics
-| Model | Avg Execution Time |
-|-------|------------------|
-| TinyLLaMA | ~60-80s |
-| TinyDolphin | ~80-100s |
-| Gemma 2 2B | ~240-280s |
-| Phi 2.7B | Used as fallback |
-
-## 💡 Future Enhancements
-- Implementing adaptive model selection thresholds based on real-time feedback.
-- Exploring hardware acceleration for improved inference speed.
-- Expanding support for additional lightweight AI models.
-- **Developing FrugalSOT as a CLI tool** for easier interaction and usability.
-
-## 🚧 Development Status
-FrugalSOT is actively being developed to function as a full CLI tool for streamlined usage. We proposed the architecture and tested it on Raspberry Pi 5 as an aid for edge computing, but it is designed to be flexible across various devices.
-
-## 🤝 Contributing
-We welcome contributions! Feel free to submit issues, pull requests, or suggestions to enhance FrugalSOT.
-
-## 📬 Contact
-For questions or collaborations, reach out to:
-📧 Email: frugalSot@gmail.com  
-🌍 Project Repository: [GitHub - HARISH20205/RPI](https://github.com/HARISH20205/RPI)  
-
-## Check out the CLI tool for this 
-[Github - HyperKuvid-Labs/FrugalSOT-CLI](https://github.com/HyperKuvid-Labs/FrugalSOT-CLI)
+**Frugal Search Over Models** — A local, resource-aware inference framework that dynamically routes prompts to the most appropriate language model based on prompt complexity and available system memory.
 
 ---
-🚀 *Optimized AI Inference for Edge Devices*
+
+## Overview
+
+FrugalSOT analyzes each incoming prompt and selects the most computationally appropriate local model to handle it. If the selected model produces an insufficiently relevant response, the system automatically escalates to a more capable model and retries. This cascading approach avoids over-provisioning compute resources on simple queries while ensuring complex queries receive adequate model capacity.
+
+All inference runs locally via [Ollama](https://ollama.com). No data leaves the machine.
+
+---
+
+## How It Works
+
+The inference pipeline executes the following steps on every request:
+
+1. **RAM Detection** — The system reads available memory from `/proc/meminfo` and selects the appropriate model tier configuration (under 8 GB or 8 GB and above).
+
+2. **Complexity Classification** (`src/prompt.py`) — The prompt is analyzed across three dimensions using NLTK:
+   - **Length**: token count bucketed into Low, Mid, or High
+   - **Named Entity Recognition (NER)**: counts recognized named entities via `ne_chunk`
+   - **Syntactic Complexity**: counts conjunctions, subordinating clauses, and average sentence length
+
+   A weighted score is computed from these three signals:
+
+   | Signal     | Weight |
+   |------------|--------|
+   | Length     | 1x     |
+   | NER        | 2x     |
+   | Syntax     | 3x     |
+
+   The total score maps to a final tier: `Low` (score <= 4), `Mid` (5-8), or `High` (> 8).
+
+3. **Model Dispatch** (`scripts/frugalSot.sh`) — The selected Ollama model is invoked with the prompt. Output is written to `data/output.txt`.
+
+4. **Relevance Evaluation** (`src/textSimilarity.py`) — The response is evaluated for semantic relevance using the Qwen2.5-1.5B-Instruct model loaded via `unsloth` with 4-bit quantization. The model scores semantic similarity between the prompt and the response on a 0.0-1.0 scale.
+
+   Thresholds are maintained per complexity tier and updated adaptively using an exponential moving average:
+
+   ```
+   threshold = alpha * score + (1 - alpha) * threshold
+   ```
+
+   Default thresholds: `low=0.4441`, `mid=0.6537`, `high=0.6934`, `alpha=0.01`
+
+5. **Escalation Loop** — If the response does not meet the relevance threshold, the complexity tier is upgraded and the request is re-run with the next model. The escalation order is: `Low -> Mid -> High -> fallback`. The loop exits on the first relevant response or after exhausting all tiers.
+
+---
+
+## Model Configuration
+
+Model assignments are defined in `data/config.json` and resolved at runtime based on available RAM.
+
+**Under 8 GB RAM:**
+
+| Complexity | Model        |
+|------------|--------------|
+| Low        | tinyllama    |
+| Mid        | tinydolphin  |
+| High       | gemma2:2b    |
+| Fallback   | phi          |
+
+**8 GB RAM and above:**
+
+| Complexity | Model        |
+|------------|--------------|
+| Low        | llama2:7b    |
+| Mid        | mistral      |
+| High       | llama3.2:3b  |
+| Fallback   | llama2:13b   |
+
+---
+
+## Source Files
+
+| File | Description |
+|------|-------------|
+| `src/main.py` | Entry point. Accepts a prompt via CLI argument, runs complexity classification, and writes results to `data/test.txt`. |
+| `src/prompt.py` | Implements `classify_prompt_complexity()` using NLTK for length, NER, and syntactic analysis. |
+| `src/modelInitialization.py` | Reads `data/config.json` and returns the model set for the detected RAM tier. |
+| `src/textSimilarity.py` | Loads Qwen2.5-1.5B via unsloth, scores semantic similarity, and updates adaptive thresholds in `data/threshold.json`. |
+| `src/textSimilarity-mock.py` | Drop-in mock for `textSimilarity.py` used in offline or testing environments. Returns a fixed score of 0.75. |
+| `src/gui.py` | Tkinter-based GUI that wraps `scripts/frugalSot.sh`. Displays execution status on the left panel and the final model output on the right panel. |
+
+---
+
+## Setup
+
+### Prerequisites
+
+- Linux (Ubuntu 22.04 or equivalent)
+- Python 3.8+
+- [Ollama](https://ollama.com) installed and running
+- `jq` and `bc` available in the shell environment
+
+### Installation
+
+```bash
+git clone https://github.com/HyperKuvid-Labs/FrugalSOT.git
+cd FrugalSOT
+
+python -m venv fenv
+source fenv/bin/activate
+
+pip install -r requirements.txt
+```
+
+### Running
+
+**Shell (interactive):**
+```bash
+cd scripts
+bash frugalSot.sh
+```
+
+**GUI:**
+```bash
+cd src
+python gui.py
+```
+
+**Classify a prompt only:**
+```bash
+python src/main.py "Explain the implications of quantum entanglement on cryptography"
+```
+
+**Model initialization check:**
+```bash
+python src/modelInitialization.py 16
+```
+
+### Docker
+
+```bash
+# Build
+docker build -t frugalsot-cli .
+
+# Run
+docker run --rm frugalsot-cli "What is machine learning?"
+
+# Docker Compose
+docker-compose run --rm frugalsot "What is machine learning?"
+```
+
+See [DOCKER.md](DOCKER.md) for full Docker usage details.
+
+---
+
+## Data Files
+
+| File | Description |
+|------|-------------|
+| `data/config.json` | Model assignments per RAM tier and complexity level. |
+| `data/threshold.json` | Current adaptive thresholds per complexity tier. Updated after each inference. |
+| `data/test.txt` | Temporary store for prompt, complexity, relevance score, and result of the current request. |
+| `data/output.txt` | Raw model response from the most recent Ollama invocation. |
+
+Per-GPU threshold files (e.g., `data/threshold_a100.json`) are available for hardware-specific calibration. The active threshold file is controlled by the `THRESHOLD_FILE` environment variable.
+
+---
+
+## Dependencies
+
+| Package | Purpose |
+|---------|---------|
+| `nltk` | Tokenization, POS tagging, NER for complexity classification |
+| `unsloth` | Efficient 4-bit loading of Qwen2.5-1.5B for relevance scoring |
+| `torch` | Model inference backend |
+| `transformers` | Tokenizer and model loading |
+| `accelerate` | Device dispatch and mixed-precision support |
+| `bitsandbytes` | 4-bit quantization |
+| `python-dotenv` | Optional environment variable loading |
+
+---
+
+## System Requirements
+
+- OS: Ubuntu 22.04 or equivalent Linux environment
+- Python: 3.8 or higher
+- Ollama: Required for all model execution
+- Minimum RAM: 4 GB (limited model set); 8 GB or above for full model tier access
+
+---
+
+## Contributing
+
+Issues and pull requests are welcome. Please ensure changes to the complexity classifier or threshold logic are accompanied by test prompts demonstrating the expected classification behavior.
+
+---
+
+## Contact
+
+Email: mantissa6789@gmail.com
+Repository: [GitHub - HyperKuvid-Labs/FrugalSOT](https://github.com/HyperKuvid-Labs/FrugalSOT)
+CLI Tool: [GitHub - HyperKuvid-Labs/FrugalSOT-CLI](https://github.com/HyperKuvid-Labs/FrugalSOT-CLI)
